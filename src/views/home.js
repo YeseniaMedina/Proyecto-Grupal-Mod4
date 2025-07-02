@@ -1,30 +1,9 @@
 import { navigate } from "../router";
-import { renderNavbar } from "../components/navbar";
-
-export async function home(container) {
-  
-  container.innerHTML = `
-    <h1>Market</h1>
-    <button id="registerButton"> click me </button>
-    
-  `;
-
-    const registerButton = document.getElementById("registerButton");
-
-    // registerButton.addEventListener("click", () => {
-    //     navigate("/login");
-    // })
-
-
-}
-
-// ******************************************************************************
-
 import { getPopularMovies, searchMovies, getGenres } from '../api/movieAPI.js';
 import { movieCard } from '../components/movieCard.js';
 import { showLoading, hideLoading, showError } from '../Utils/validations.js';
 
-export function home() {
+export function home(container) {
   const homeSection = document.createElement('section'); 
   homeSection.className = 'home';
   homeSection.innerHTML = `
@@ -260,5 +239,5 @@ export function home() {
     loadMovies();
   }
 
-  return homeSection;
+  container.appendChild(homeSection); 
 }
