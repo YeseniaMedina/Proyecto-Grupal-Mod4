@@ -43,4 +43,5 @@ export function movieCard(movie) {
   });
 
   return card;
+ 
 }

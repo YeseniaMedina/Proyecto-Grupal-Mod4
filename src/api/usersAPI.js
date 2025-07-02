@@ -54,3 +54,4 @@ export function getCurrentUser() {
     
     return loadUser ? JSON.parse(loadUser) : null;
 }
+
