@@ -1,12 +1,15 @@
 body {
   font-family: Arial, sans-serif;
+  font-size: 1em;
   background-color: #111111;
   padding: 30px;
 }
 
 .profile-h1 {
-  color: #15bf94;
+  color: #bf1515;
   text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 1.5%;
 }
 
 .profile-container {
@@ -14,9 +17,10 @@ body {
   color: white;
   padding: 2em;
   border-radius: 0.8em;
-  width: 40%;
-  margin: auto;
+  width: 50%;
+  margin: 1% 25% 2% 25%;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  justify-content: center;
 }
 
 .profile-photo {
@@ -26,31 +30,49 @@ body {
 }
 
 .profile-photo img {
-  width: 40%;
-  height: 40%;
+  width: 30%;
+  height: 30%;
   object-fit: cover;
   border-radius: 50%;
   margin-bottom: 1em;
-  /* grid-area: 1 / 1 / 2 / 2;/ */
 }
 
 .profile-fav {
   display:flex;
-  flex-wrap: wrap;
+  justify-self: center;
   justify-content: center;
+  border: #bf1515;
+  background-color: #bf1515;
+  color: white;
+  padding:0.5em;
+  margin: 5%;
+  border-radius: 0.2em;
+  width: 50%;
+  font-size: 1.25em;
+  
 
 }
 
-/* .profile-fav img {
-  align-content: center;
-  align-items: center;
-  
-  
-} */
+.profile-fav:hover {
+  background-color: #111111;
+  box-shadow: #bf1515; 
+}
 
-/* .profile-info {
-  grid-area: 2 / 1 / 3 / 3;
-}  */
+.profile-info {
+  font-size: 1.25em;
+  justify-self:normal;
+  padding-left: 5%;
+}
+
+#profileForm {
+
+  margin: 5% auto 5% auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+}
 
 
 .profileInput {
@@ -60,23 +82,38 @@ body {
   width: 94%;
   border-radius: 0.2em;
   border-style: none;
+  background-color: #111111;
+  color: white; 
+  font-size: 1.05em;
 }
 
 .profileBtn {
   padding: 3%;
   width: 100%;
-  background-color: #15bf94;
+  background-color: #bf1515;
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 0.2em;
+  font-size: 1.25em;;
+}
+
+.profileBtn:hover {
+  background-color: #111111;
+  box-shadow: #bf1515; 
+
 }
 
 .mensaje-perfil {
-  color: #15bf94;
+  color: #bf1515;
   padding: 10px;
   margin-top: 10px;
   border-radius: 5px;
   font-size: 14px;
   text-align: center;
 } 
+
+#inputFoto {
+  border: none;
+  background-color: black;
+}

@@ -9,7 +9,8 @@ export function profile(container, id) {
         <img id="fotoPerfil" src="../assets/images/3538491_editado.jpg" alt="Foto de perfil" />
         </div>
         <div class="profile-fav">
-         <a href="/fav"<p> Mis favoritos</p></a>
+            <a href="/fav"<p>Mis favoritos</p></a>
+    
         </div>
         <div class="profile-info">
             <p><strong>Nombre:</strong> <span id="nombre">---</span></p>
@@ -20,7 +21,6 @@ export function profile(container, id) {
     </div>
     <button class="profileBtn" id="toggleBtn">Editar perfil</button>
     <div class="profile-box" id="profileBox" style="display:none;">
-      <h2>Editar Perfil</h2>
         <form id="profileForm">
           <input class="profileInput" type="text" id="inputNombre" placeholder="Nombre" required />
           <input class="profileInput" type="email" id="inputEmail" placeholder="Email" required />
