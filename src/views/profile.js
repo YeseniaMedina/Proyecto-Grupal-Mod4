@@ -9,15 +9,12 @@ export function profile(container, id) {
         <img id="fotoPerfil" src="../assets/images/3538491_editado.jpg" alt="Foto de perfil" />
         </div>
         <div class="profile-fav">
-         <a href="#"> 
-          <img id="heart" src="../assets/images/heart.svg" alt="Icon de corazón"/>
-          </a>
+         <a href="/fav"<p> Mis favoritos</p></a>
         </div>
-
         <div class="profile-info">
-        <p><strong>Nombre:</strong> <span id="nombre">---</span></p>
-        <p><strong>Email:</strong> <span id="email">---</span></p>
-        <p><strong>Película favorita:</strong> <span id="peliculafavorita">---</span></p>
+            <p><strong>Nombre:</strong> <span id="nombre">---</span></p>
+            <p><strong>Email:</strong> <span id="email">---</span></p>
+            <p><strong>Película favorita:</strong> <span id="peliculafavorita">---</span></p>
         </div>
         <br>
     </div>
@@ -30,9 +27,10 @@ export function profile(container, id) {
           <input class="profileInput" type="text" id="inputPeliculaFavorita" placeholder="Pelicula favorita" required />
           <input class="profileInput" type="file" id="inputFoto" accept="image/*" />
           <button class="profileBtn" type="submit">Guardar</button>
+          <div id="mensajePerfil" class="mensaje-perfil" style="display: none:"></div>
         </form>
     </div>
-  </div>`
+  </div>`;
     const form = document.getElementById('profileForm');
     const nombreSpan = document.getElementById('nombre');
     const emailSpan = document.getElementById('email');
@@ -41,17 +39,17 @@ export function profile(container, id) {
     const inputFoto = document.getElementById('inputFoto');
 
     // Cargar datos desde localStorage
-    window.addEventListener('load', () => {
+    //window.addEventListener('load', () => {
+    //Cargar datos guardados y actualizar vista **aquí mismo**
     const datosGuardados = JSON.parse(localStorage.getItem('perfil'));
     if (datosGuardados) {
-        nombreSpan.textContent = datosGuardados.nombre;
-        emailSpan.textContent = datosGuardados.email;
-        peliculafavoritaSpan.textContent = datosGuardados.peliculafavorita;
+        nombreSpan.textContent = datosGuardados.nombre || "...";
+        emailSpan.textContent = datosGuardados.email || "...";
+        peliculafavoritaSpan.textContent = datosGuardados.peliculafavorita || "...";
         if (datosGuardados.foto) {
         fotoPerfil.src = datosGuardados.foto;
         }
-    }
-    });
+    };
 
     form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -85,6 +83,18 @@ export function profile(container, id) {
 
     const perfil = { nombre, email, peliculafavorita, foto };
     localStorage.setItem('perfil', JSON.stringify(perfil));
+    
+
+    //Mensaje de éxito
+    const mensajeDiv = document.getElementById("mensajePerfil");
+    mensajeDiv.textContent = "¡Perfil actualizado con éxito!";
+    mensajeDiv.style.display = "block";
+
+    //Ocultar mensaje de éxito
+    setTimeout(() => {
+        mensajeDiv.style.display = "none";
+    }, 3000);
+
     }
 
     //Visibilidad de la caja (toggleBox)
@@ -98,4 +108,7 @@ export function profile(container, id) {
         div.style.display = "none";
     }
     });   
+    
+
+
 }

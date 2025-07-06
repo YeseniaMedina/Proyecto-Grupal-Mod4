@@ -19,14 +19,6 @@ body {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-/* .basic-profile {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows:repeat(2, 1fr);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-} */
-
 .profile-photo {
   display:flex;
   flex-wrap: wrap;
@@ -79,3 +71,12 @@ body {
   cursor: pointer;
   border-radius: 0.2em;
 }
+
+.mensaje-perfil {
+  color: #15bf94;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+} 
