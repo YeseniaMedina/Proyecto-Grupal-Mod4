@@ -1,6 +1,7 @@
 import { getAllUsers } from "../api/usersAPI";
 import { renderNavbar } from "../components/navbar";
 import { navigate } from "../router";
+import { showToast } from "../Utils/showToast";
 
 export function login(container) {
   container.innerHTML = `
@@ -36,9 +37,12 @@ export function login(container) {
       if (currentUser) {
         currentUser.active = true;
         localStorage.setItem("currentUser", JSON.stringify(currentUser));
-        alert("Login successful");
+        
       } else {
-        alert("Datos introducidos incorrectos");
+        showToast({
+        text: "Email o contraseña no valido",
+        type: "error",
+      });
       }
     renderNavbar(container);
     navigate("/");
