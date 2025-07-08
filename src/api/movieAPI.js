@@ -57,3 +57,24 @@ export async function getGenres() {
     throw error;
   }
 }
+
+export async function getMovieDetails(id) {
+  try {
+    const response = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=es-ES`);
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching movie details:', error);
+    throw error;
+  }
+}
+
+export async function getMovieVideos(id) {
+  const res = await fetch(
+    `${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=es-ES`
+  );
+  if (!res.ok) throw new Error(`Videos error ${res.status}: ${res.statusText}`);
+  return (await res.json()).results;
+}

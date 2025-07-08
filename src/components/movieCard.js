@@ -81,11 +81,16 @@ export function movieCard(movie) {
 
 
   // EVENTO PARA VER DETALLES ******************************************
-  card.addEventListener('click', () => {
-    console.log('Ver detalles de:', movie.title);
+  // card.addEventListener('click', () => {
+  //   console.log('Ver detalles de:', movie.title);
     // TODO: Navegar a página de detalles
-  });
+//   });
 
-  return card;
+  // return card;
  
-}
+// }
+ card.addEventListener('click', () => {
+    window.history.pushState({}, '', `/movie/${movie.id}`);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  });
+  return card;}
