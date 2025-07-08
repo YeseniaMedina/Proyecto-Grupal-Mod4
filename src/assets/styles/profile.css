@@ -1,8 +1,10 @@
 body {
-  font-family: Arial, sans-serif;
-  font-size: 1em;
-  background-color: #111111;
-  padding: 30px;
+  height: 100%;
+  font-size: 100%;
+  line-height: 1.5;
+  font-family: "Arial", sans-serif;
+  background-color: #121212;
+  color: #fff;
 }
 
 .profile-h1 {
@@ -59,9 +61,11 @@ body {
 }
 
 .profile-info {
-  font-size: 1.25em;
-  justify-self:normal;
-  padding-left: 5%;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #profileForm {

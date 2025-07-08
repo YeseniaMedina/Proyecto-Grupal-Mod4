@@ -6,7 +6,8 @@ export function movieCard(movie) {
   card.className = 'movie-card';
   
   // Usar imagen por defecto si no hay poster_path
-  const imageUrl = movie.poster_path 
+ 
+    const imageUrl = movie.poster_path 
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : DEFAULT_IMAGE;
   
@@ -29,15 +30,22 @@ export function movieCard(movie) {
   `;
 
   // EVENTO PARA EL BOTÓN DE FAVORITOS *********************************
+
   card.querySelector('.favorite-btn').addEventListener('click', (e) => {
    e.stopPropagation();
-    // Se añadirá otra cosa para indicar el registro
-    //alert('Debes iniciar sesión para agregar a favoritos');
+  
     // Inicializar estado favorito desde localStorage
+=======
+  const favButton = card.querySelector('.favorite-btn');
+  const movieId = movie.id.toString();
+
+  //Inicializar estado favorito
+
   const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
   if (favourites.includes(movieId)) {
     favButton.classList.add('favourited');
   }
+
 
   // Evento para toggle favoritos
   favButton.addEventListener('click', (e) => {
@@ -54,6 +62,21 @@ export function movieCard(movie) {
     localStorage.setItem('favourites', JSON.stringify(favourites));
   });
   });
+
+  
+  favButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    
+    if (favourites.includes(movieId)) {
+      favourites = favourites.filter(id => id !== movieId);
+    } else {
+      favourites.push(movieId); //Guardar objeto completo, no solo ID
+    }
+    localStorage.setItem('favourites', JSON.stringify(favourites));
+    });
+  
+
 
 
 
