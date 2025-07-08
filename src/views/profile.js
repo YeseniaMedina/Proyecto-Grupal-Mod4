@@ -9,8 +9,7 @@ export function profile(container, id) {
         <img id="fotoPerfil" src="../assets/images/3538491_editado.jpg" alt="Foto de perfil" />
         </div>
         <div class="profile-fav">
-            <a href="/fav"<p>Mis favoritos</p></a>
-    
+            <a href="/fav" class="profile-link">Mis favoritos</a>
         </div>
         <div class="profile-info">
             <p><strong>Nombre:</strong> <span id="nombre">---</span></p>
@@ -27,7 +26,7 @@ export function profile(container, id) {
           <input class="profileInput" type="text" id="inputPeliculaFavorita" placeholder="Pelicula favorita" required />
           <input class="profileInput" type="file" id="inputFoto" accept="image/*" />
           <button class="profileBtn" type="submit">Guardar</button>
-          <div id="mensajePerfil" class="mensaje-perfil" style="display: none:"></div>
+          <div id="mensajePerfil" class="mensaje-perfil" style="display: none;"></div>
         </form>
     </div>
   </div>`;
@@ -50,7 +49,7 @@ export function profile(container, id) {
         fotoPerfil.src = datosGuardados.foto;
         }
     };
-
+    
     form.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -63,10 +62,11 @@ export function profile(container, id) {
     if (fotoFile) {
         const reader = new FileReader();
         reader.onloadend = function () {
-        const fotoBase64 = reader.result;
+            const fotoBase64 = reader.result;
 
-        guardarYMostrar(nombre, email, peliculafavorita, fotoBase64);
-        };
+            guardarYMostrar(nombre, email, peliculafavorita, fotoBase64);
+        
+        };     
         reader.readAsDataURL(fotoFile);
     } else {
         const datosGuardados = JSON.parse(localStorage.getItem('perfil'));
@@ -83,6 +83,7 @@ export function profile(container, id) {
 
     const perfil = { nombre, email, peliculafavorita, foto };
     localStorage.setItem('perfil', JSON.stringify(perfil));
+    form.reset();
     
 
     //Mensaje de éxito
@@ -98,17 +99,10 @@ export function profile(container, id) {
     }
 
     //Visibilidad de la caja (toggleBox)
-    let button = document.getElementById("toggleBtn");
-    let div = document.getElementById("profileBox");
+    const button = document.getElementById("toggleBtn");
+    const div = document.getElementById("profileBox");
 
-    button.addEventListener("click", function() {
-    if (div.style.display === "none") {
-        div.style.display = "block";
-    } else {
-        div.style.display = "none";
-    }
+    button.addEventListener("click", () => {
+        div.style.display = div.style.display === "none" ? "block" : "none";
     });   
-    
-
-
 }

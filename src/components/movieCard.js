@@ -30,14 +30,39 @@ export function movieCard(movie) {
   `;
 
   // EVENTO PARA EL BOTÓN DE FAVORITOS *********************************
+
+  card.querySelector('.favorite-btn').addEventListener('click', (e) => {
+   e.stopPropagation();
+  
+    // Inicializar estado favorito desde localStorage
+=======
   const favButton = card.querySelector('.favorite-btn');
   const movieId = movie.id.toString();
 
   //Inicializar estado favorito
+
   const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
   if (favourites.includes(movieId)) {
     favButton.classList.add('favourited');
   }
+
+
+  // Evento para toggle favoritos
+  favButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+
+    if (favourites.includes(movieId)) {
+      favourites = favourites.filter(id => id !== movieId);
+      favButton.classList.remove('favourited');
+    } else {
+      favourites.push(movieId);
+      favButton.classList.add('favourited');
+    }
+    localStorage.setItem('favourites', JSON.stringify(favourites));
+  });
+  });
+
   
   favButton.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -51,6 +76,8 @@ export function movieCard(movie) {
     localStorage.setItem('favourites', JSON.stringify(favourites));
     });
   
+
+
 
 
   // EVENTO PARA VER DETALLES ******************************************
