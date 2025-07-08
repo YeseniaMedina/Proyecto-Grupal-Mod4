@@ -1,0 +1,123 @@
+body {
+  height: 100%;
+  font-size: 100%;
+  line-height: 1.5;
+  font-family: "Arial", sans-serif;
+  background-color: #121212;
+  color: #fff;
+}
+
+.profile-h1 {
+  color: #bf1515;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 1.5%;
+}
+
+.profile-container {
+  background-color: black;
+  color: white;
+  padding: 2em;
+  border-radius: 0.8em;
+  width: 50%;
+  margin: 1% 25% 2% 25%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  justify-content: center;
+}
+
+.profile-photo {
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.profile-photo img {
+  width: 30%;
+  height: 30%;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1em;
+}
+
+.profile-fav {
+  display:flex;
+  justify-self: center;
+  justify-content: center;
+  border: #bf1515;
+  background-color: #bf1515;
+  color: white;
+  padding:0.5em;
+  margin: 5%;
+  border-radius: 0.2em;
+  width: 50%;
+  font-size: 1.25em;
+  
+
+}
+
+.profile-fav:hover {
+  background-color: #111111;
+  box-shadow: #bf1515; 
+}
+
+.profile-info {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#profileForm {
+
+  margin: 5% auto 5% auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+}
+
+
+.profileInput {
+  display: block;
+  margin: 1%;
+  padding: 1em;
+  width: 94%;
+  border-radius: 0.2em;
+  border-style: none;
+  background-color: #111111;
+  color: white; 
+  font-size: 1.05em;
+}
+
+.profileBtn {
+  padding: 3%;
+  width: 100%;
+  background-color: #bf1515;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.2em;
+  font-size: 1.25em;;
+}
+
+.profileBtn:hover {
+  background-color: #111111;
+  box-shadow: #bf1515; 
+
+}
+
+.mensaje-perfil {
+  color: #bf1515;
+  padding: auto;
+  margin-top: 1.5em;
+  border-radius: 5px;
+  font-size: 1.5em;
+  text-align: center;
+} 
+
+#inputFoto {
+  border: none;
+  background-color: black;
+}
