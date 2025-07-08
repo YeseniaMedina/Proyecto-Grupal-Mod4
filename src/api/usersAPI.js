@@ -11,15 +11,15 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                name: param.name,
-                email: param.email,
-                password: param.password,
-                prone_number: param.phone,
+                name: param.regName,
+                email: param.regEmail,
+                password: param.regPassword,
+                
             })
         })
 
         if(!response.ok) {
-            throw new Error("Error:", response.statatus);
+            throw new Error(response.status);
         }
 
         const user = await response.json();
