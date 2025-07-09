@@ -5,6 +5,7 @@ import { detail } from "./views/movieDetail.js";
 import { profile } from "./views/profile.js";
 import { favourites } from "./views/favourites.js";
 import { getCurrentUser } from "./api/usersAPI.js";
+import { renderNavbar } from "./components/navbar.js";
 
 const publicPaths = ["/login", "/register"];
 
@@ -77,4 +78,6 @@ export function handleLinks() {
   });
 
   window.addEventListener("popstate", router);
+
+  renderNavbar(document.getElementById('navbar'));
 }

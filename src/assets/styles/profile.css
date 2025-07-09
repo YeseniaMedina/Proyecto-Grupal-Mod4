@@ -1,11 +1,11 @@
-body {
+/*body {
   height: 100%;
   font-size: 100%;
   line-height: 1.5;
   font-family: "Arial", sans-serif;
   background-color: #121212;
   color: #fff;
-}
+}*/
 
 .profile-h1 {
   color: #bf1515;
@@ -21,12 +21,12 @@ body {
   border-radius: 0.8em;
   width: 50%;
   margin: 1% 25% 2% 25%;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   justify-content: center;
 }
 
 .profile-photo {
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -40,24 +40,22 @@ body {
 }
 
 .profile-fav {
-  display:flex;
+  display: flex;
   justify-self: center;
   justify-content: center;
   border: #bf1515;
   background-color: #bf1515;
   color: white;
-  padding:0.5em;
+  padding: 0.5em;
   margin: 5%;
   border-radius: 0.2em;
   width: 50%;
   font-size: 1.25em;
-  
-
 }
 
 .profile-fav:hover {
   background-color: #111111;
-  box-shadow: #bf1515; 
+  box-shadow: #bf1515;
 }
 
 .profile-info {
@@ -69,15 +67,11 @@ body {
 }
 
 #profileForm {
-
   margin: 5% auto 5% auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-
 }
-
 
 .profileInput {
   display: block;
@@ -87,7 +81,7 @@ body {
   border-radius: 0.2em;
   border-style: none;
   background-color: #111111;
-  color: white; 
+  color: white;
   font-size: 1.05em;
 }
 
@@ -99,13 +93,12 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 0.2em;
-  font-size: 1.25em;;
+  font-size: 1.25em;
 }
 
 .profileBtn:hover {
   background-color: #111111;
-  box-shadow: #bf1515; 
-
+  box-shadow: #bf1515;
 }
 
 .mensaje-perfil {
@@ -115,7 +108,7 @@ body {
   border-radius: 5px;
   font-size: 1.5em;
   text-align: center;
-} 
+}
 
 #inputFoto {
   border: none;

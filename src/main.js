@@ -1,11 +1,12 @@
-import { Header } from './components/header.js';
+import { renderNavbar } from './components/navbar.js';
+import { router, handleLinks } from "./router.js";
 import { home } from './views/home.js';
-import './assets/styles/variables.css';
 import './assets/styles/reset.css';
+import './assets/styles/variables.css';
 import './assets/styles/header.css';
-import './assets/styles/home.css';
 
-// Función para inicializar la aplicación
+
+/*// Función para inicializar la aplicación
 function initApp() {
   const appContainer = document.createElement('div');
   appContainer.id = 'app-container';
@@ -32,4 +33,11 @@ function initApp() {
 }
 
 // Inicializar la aplicación cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', initApp);
+document.addEventListener('DOMContentLoaded', initApp);*/
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderNavbar(document.getElementById('navbar'));
+  handleLinks();
+  router();
+  
+});

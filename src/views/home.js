@@ -1,8 +1,9 @@
 import { getPopularMovies, searchMovies, getGenres } from '../api/movieAPI.js';
 import { movieCard } from '../components/movieCard.js';
 import { showLoading, hideLoading, showError } from '../utils/validations.js';
+import "../assets/styles/home.css";
 
-export function home() {
+export function home(container) {
   const homeSection = document.createElement('section'); 
   homeSection.className = 'home';
   homeSection.innerHTML = `
@@ -247,13 +248,13 @@ export function home() {
   }
 
 
-  return homeSection;
-
+  /*return homeSection;*/
+  container.innerHTML = "";
   container.appendChild(homeSection); 
-
+}
 
   ///PRUEBA PARA AGREGAR A FAVORITOS DESDE HOME
-  const API_URL = "https://686abde0e559eba90870cd90.mockapi.io/favouritesAPI/";
+/*  const API_URL = "https://686abde0e559eba90870cd90.mockapi.io/favouritesAPI/";
 const userId = '2';  // ID del usuario (deberías obtenerlo desde tu sesión o auth)
 
 function agregarFavorito(userId, movieId) {
@@ -288,4 +289,4 @@ document.querySelectorAll('.favorite-btn').forEach(btn => {
   });
 });
 
-}
+}*/
