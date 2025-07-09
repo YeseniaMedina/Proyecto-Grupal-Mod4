@@ -1,0 +1,21 @@
+:root {
+  /* Colores */
+  --primary-color: #15BF94;
+  --background-dark: #000;
+  --background-medium: #121212;
+  --background-light: #1a1a1a;
+  --background-lighter: #1e1e1e;
+  --text-color: #fff;
+  --text-secondary: #aaa;
+  --border-color: #444444;
+  
+  /* Tamaños */
+  --header-height: 70px;
+  --max-width: 1200px;
+  
+  /* Sombras */
+  --shadow: 0 2px 10px rgba(116, 113, 113, 0.5);
+  
+  /* Transiciones */
+  --transition: all 0.3s ease;
+}

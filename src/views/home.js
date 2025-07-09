@@ -1,20 +1,20 @@
-import { navigate } from "../router";
 import { getPopularMovies, searchMovies, getGenres } from '../api/movieAPI.js';
 import { movieCard } from '../components/movieCard.js';
-import { showLoading, hideLoading, showError } from '../Utils/validations.js';
+import { showLoading, hideLoading, showError } from '../utils/validations.js';
 
-export function home(container) {
+export function home() {
   const homeSection = document.createElement('section'); 
   homeSection.className = 'home';
   homeSection.innerHTML = `
-    <div class="title-container">
-      <h1>Búsqueda y Filtros</h1>
-    </div>
-
     <div class="filters-container">
       <div class="search-filter">
-        <input type="text" id="search-input" placeholder="Buscar películas...">
-        <button id="search-btn">Buscar</button>
+        <button id="search-toggle" class="search-toggle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="M21 21l-4.35-4.35"/>
+          </svg>
+        </button>
+        <input type="text" id="search-input" placeholder="Buscar películas..." class="hidden">
       </div>
       
       <div class="advanced-filters">
@@ -22,7 +22,6 @@ export function home(container) {
           <label for="genre-filter">Género:</label>
           <select id="genre-filter">
             <option value="">Todos</option>
-            <!-- Géneros se cargarán dinámicamente -->
           </select>
         </div>
         
@@ -30,24 +29,23 @@ export function home(container) {
           <label for="year-filter">Año:</label>
           <select id="year-filter">
             <option value="">Todos</option>
-            <!-- Años se cargarán dinámicamente -->
           </select>
         </div>
         
         <div class="filter-group">
           <label for="sort-by">Ordenar por:</label>
           <select id="sort-by">
-            <option value="popularity.desc">Popularidad (desc)</option>
-            <option value="popularity.asc">Popularidad (asc)</option>
-            <option value="release_date.desc">Fecha (nuevas)</option>
-            <option value="release_date.asc">Fecha (antiguas)</option>
-            <option value="vote_average.desc">Puntuación (alta)</option>
-            <option value="vote_average.asc">Puntuación (baja)</option>
+            <option value="popularity.desc">Más populares</option>
+            <option value="popularity.asc">Menos populares</option>
+            <option value="release_date.desc">Más recientes</option>
+            <option value="release_date.asc">Más antiguas</option>
+            <option value="vote_average.desc">Mayor puntuación</option>
+            <option value="vote_average.asc">Menor puntuación</option>
           </select>
         </div>
         
-        <button id="apply-filters">Aplicar Filtros</button>
-        <button id="reset-filters">Resetear</button>
+        <button id="apply-filters" class="filter-btn">Aplicar</button>
+        <button id="reset-filters" class="filter-btn">Restablecer</button>
       </div>
     </div>
     
@@ -74,7 +72,7 @@ export function home(container) {
   // Cargar datos iniciales
   loadInitialData();
 
-  // Configurar las garcas
+  // Configurar los eventos
   setupEventListeners();
 
   async function loadInitialData() {
@@ -135,7 +133,7 @@ export function home(container) {
       }
       
       // Actualizar el estado de paginación
-      currentFilters.totalPages = movies.total_pages > 500 ? 500 : movies.total_pages; // La API limita a 500 páginas
+      currentFilters.totalPages = movies.total_pages > 500 ? 500 : movies.total_pages;
       
       // Verificar si hay resultados
       if (movies.results && movies.results.length > 0) {
@@ -179,11 +177,18 @@ export function home(container) {
   }
 
   function setupEventListeners() {
-    // Búsqueda
+    // Toggle de búsqueda
+    const searchToggle = homeSection.querySelector('#search-toggle');
     const searchInput = homeSection.querySelector('#search-input');
-    const searchBtn = homeSection.querySelector('#search-btn');
     
-    searchBtn.addEventListener('click', handleSearch);
+    searchToggle.addEventListener('click', () => {
+      searchInput.classList.toggle('hidden');
+      if (!searchInput.classList.contains('hidden')) {
+        searchInput.focus();
+      }
+    });
+    
+    // Búsqueda al presionar Enter
     searchInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') handleSearch();
     });
@@ -194,8 +199,9 @@ export function home(container) {
       currentFilters.year = homeSection.querySelector('#year-filter').value;
       currentFilters.sortBy = homeSection.querySelector('#sort-by').value;
       currentFilters.page = 1;
-      currentFilters.query = ''; // Resetear búsqueda al aplicar filtros
-      homeSection.querySelector('#search-input').value = '';
+      currentFilters.query = '';
+      searchInput.value = '';
+      searchInput.classList.add('hidden');
       loadMovies();
     });
     
@@ -213,7 +219,8 @@ export function home(container) {
       homeSection.querySelector('#genre-filter').value = '';
       homeSection.querySelector('#year-filter').value = '';
       homeSection.querySelector('#sort-by').value = 'popularity.desc';
-      homeSection.querySelector('#search-input').value = '';
+      searchInput.value = '';
+      searchInput.classList.add('hidden');
       loadMovies();
     });
     
@@ -239,5 +246,5 @@ export function home(container) {
     loadMovies();
   }
 
-  container.appendChild(homeSection); 
+  return homeSection;
 }
