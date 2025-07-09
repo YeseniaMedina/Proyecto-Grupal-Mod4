@@ -29,27 +29,91 @@ export function movieCard(movie) {
     </div>
   `;
 
+  //----------------------------------------------------------
   // EVENTO PARA EL BOTÓN DE FAVORITOS *********************************
-
-  card.querySelector('.favorite-btn').addEventListener('click', (e) => {
-   e.stopPropagation();
+// const favButton = card.querySelector('.favorite-btn');
+//   const movieId = movie.id.toString();
+//   // card.querySelector('.favorite-btn').addEventListener('click', (e) => {
+//   //  e.stopPropagation();
   
-    // Inicializar estado favorito desde localStorage
-=======
+//     // Inicializar estado favorito desde localStorage
+
+  
+
+//   //Inicializar estado favorito
+
+//   const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+//   if (favourites.includes(movieId)) {
+//     favButton.classList.add('favourited');
+//   }
+
+
+//   // Evento para toggle favoritos
+//   favButton.addEventListener('click', (e) => {
+//     e.stopPropagation();
+//     let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+      
+
+//     if (favourites.includes(movieId)) {
+//       favourites = favourites.filter(id => id !== movieId);
+//       favButton.classList.remove('favourited');
+//     } else {
+//       favourites.push(movieId);
+//       favButton.classList.add('favourited');
+//     }
+//     localStorage.setItem('favourites', JSON.stringify(favourites));
+//   });
+//   // });
+
+  
+//   favButton.addEventListener('click', (e) => {
+//     e.stopPropagation();
+//     let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    
+//     if (favourites.includes(movieId)) {
+//       favourites = favourites.filter(id => id !== movieId);
+//     } else {
+//       favourites.push(movieId); //Guardar objeto completo, no solo ID
+//     }
+//     localStorage.setItem('favourites', JSON.stringify(favourites));
+//     });
+  
+
+
+
+
+//   // EVENTO PARA VER DETALLES ******************************************
+//   // card.addEventListener('click', () => {
+//   //   console.log('Ver detalles de:', movie.title);
+//     // TODO: Navegar a página de detalles
+// //   });
+
+//   // return card;
+ 
+// // }
+//  card.addEventListener('click', () => {
+//     window.history.pushState({}, '', `/movie/${movie.id}`);
+//     window.dispatchEvent(new PopStateEvent('popstate'));
+//   });
+//   return card;
+  //--------------------------------------------------------
+
+  // Obtener referencia al botón
   const favButton = card.querySelector('.favorite-btn');
   const movieId = movie.id.toString();
 
-  //Inicializar estado favorito
+  // Leer favoritos actuales del localStorage
+  let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
 
-  const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+  // Marcar como favorito si ya está en la lista
   if (favourites.includes(movieId)) {
     favButton.classList.add('favourited');
   }
 
-
-  // Evento para toggle favoritos
+  // Evento para añadir o quitar de favoritos
   favButton.addEventListener('click', (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // Evita que se dispare el evento de ver detalles
+
     let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
 
     if (favourites.includes(movieId)) {
@@ -59,38 +123,28 @@ export function movieCard(movie) {
       favourites.push(movieId);
       favButton.classList.add('favourited');
     }
+
     localStorage.setItem('favourites', JSON.stringify(favourites));
   });
-  });
 
-  
-  favButton.addEventListener('click', (e) => {
-    e.stopPropagation();
-    let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
-    
-    if (favourites.includes(movieId)) {
-      favourites = favourites.filter(id => id !== movieId);
-    } else {
-      favourites.push(movieId); //Guardar objeto completo, no solo ID
-    }
-    localStorage.setItem('favourites', JSON.stringify(favourites));
-    });
-  
+  //--------------------------------------------------------------
 
+  // DEtalles que puso Carmen
 
-
-
-  // EVENTO PARA VER DETALLES ******************************************
+  // Evento para ver detalles (puedes expandirlo luego)
   // card.addEventListener('click', () => {
   //   console.log('Ver detalles de:', movie.title);
-    // TODO: Navegar a página de detalles
-//   });
+  //   // TODO: Redirigir o mostrar detalles
+  // });
 
   // return card;
- 
-// }
- card.addEventListener('click', () => {
+  //---------------------------------------------------
+
+
+  // Detalles que puso sheila( sin esto no se ve )
+  card.addEventListener('click', () => {
     window.history.pushState({}, '', `/movie/${movie.id}`);
     window.dispatchEvent(new PopStateEvent('popstate'));
   });
-  return card;}
+  return card;
+}
