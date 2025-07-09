@@ -7,7 +7,7 @@ export function profile(container, id) {
     <h1 class="profile-h1">Mi Perfil</h1>
     <div class="basic-profile">
         <div class="profile-photo">
-        <img id="fotoPerfil" src="../assets/images/3538491_editado.jpg" alt="Foto de perfil" />
+        <img id="fotoPerfil" src="./assets/images/3538491_editado.jpg" alt="Foto de perfil" />
         </div>
         <div class="profile-fav">
             <a href="/fav" class="profile-link">Mis favoritos</a>
