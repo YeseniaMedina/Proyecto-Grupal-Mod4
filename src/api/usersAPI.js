@@ -14,6 +14,7 @@
                 name: param.regName,
                 email: param.regEmail,
                 password: param.regPassword,
+                 fav: param.fav || [],
                 
             })
         })

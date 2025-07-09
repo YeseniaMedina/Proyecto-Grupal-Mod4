@@ -28,13 +28,13 @@ export function register(container) {
 
         // creo el objeto de los dattos del ususario y llamando a las validaciones
 
-        const validations = credentialValidations({name: regName, email: regEmail, password: regPassword})
+        const validations = credentialValidations({name: regName, email: regEmail, password: regPassword}) // mediante desestructuracion por eso le tengo que dar una propiedad y hacer referencia
 
       
 
         if(validations) {
             const userData= {
-                regName, regEmail, regPassword,
+                regName, regEmail, regPassword, 
             }
 
              await createNewUser(userData);

@@ -1,4 +1,5 @@
 import { renderNavbar } from "../components/navbar";
+import { getCurrentUser } from "../api/usersAPI";
 import "../assets/styles/profile.css";
 
 export function profile(container, id) {
@@ -21,8 +22,8 @@ export function profile(container, id) {
     <button class="profileBtn" id="toggleBtn">Editar perfil</button>
     <div class="profile-box" id="profileBox" style="display:none;">
         <form id="profileForm">
-          <input class="profileInput" type="text" id="inputNombre" placeholder="Nombre" required />
-          <input class="profileInput" type="email" id="inputEmail" placeholder="Email" required />
+          <input class="profileInput" type="text" id="inputNombre" placeholder="Nombre"  />
+          <input class="profileInput" type="email" id="inputEmail" placeholder="Email"  />
           <input class="profileInput" type="text" id="inputPeliculaFavorita" placeholder="Pelicula favorita" required />
           <input class="profileInput" type="file" id="inputFoto" accept="image/*" />
           <button class="profileBtn" type="submit">Guardar</button>
@@ -37,14 +38,15 @@ export function profile(container, id) {
     const fotoPerfil = document.getElementById('fotoPerfil');
     const inputFoto = document.getElementById('inputFoto');
 
-    // Cargar datos desde localStorage
-    //window.addEventListener('load', () => {
     //Cargar datos guardados y actualizar vista **aquí mismo**
-    const datosGuardados = JSON.parse(localStorage.getItem('perfil'));
+    const datosGuardados = getCurrentUser(); //Cambie el "perfil" por el current user para ver quien estaba logueado y se guardaran sus datos y por la funcion getCurrentUser para ver quien este logueado
     if (datosGuardados) {
-        nombreSpan.textContent = datosGuardados.nombre || "...";
+        nombreSpan.textContent = datosGuardados.name || "...";
         emailSpan.textContent = datosGuardados.email || "...";
-        peliculafavoritaSpan.textContent = datosGuardados.peliculafavorita || "...";
+
+        // haY QUE VER PORQUE ESTO NO ESTA EN MOCKAPI POR LO TANTO SOLO SE GUARDARIA EN EL LOCAL STORAGE
+        
+        // peliculafavoritaSpan.textContent = datosGuardados.peliculafavorita || "...";
         if (datosGuardados.foto) {
         fotoPerfil.src = datosGuardados.foto;
         }
