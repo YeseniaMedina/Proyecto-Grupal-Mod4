@@ -29,6 +29,7 @@ export function movieCard(movie) {
     </div>
   `;
 
+
   //----------------------------------------------------------
   // EVENTO PARA EL BOTÓN DE FAVORITOS *********************************
 // const favButton = card.querySelector('.favorite-btn');
@@ -125,6 +126,7 @@ export function movieCard(movie) {
     }
 
     localStorage.setItem('favourites', JSON.stringify(favourites));
+
   });
 
   //--------------------------------------------------------------
@@ -148,3 +150,4 @@ export function movieCard(movie) {
   });
   return card;
 }
+
