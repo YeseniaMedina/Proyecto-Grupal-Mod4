@@ -246,5 +246,46 @@ export function home() {
     loadMovies();
   }
 
+
   return homeSection;
+
+  container.appendChild(homeSection); 
+
+
+  ///PRUEBA PARA AGREGAR A FAVORITOS DESDE HOME
+  const API_URL = "https://686abde0e559eba90870cd90.mockapi.io/favouritesAPI/";
+const userId = '2';  // ID del usuario (deberías obtenerlo desde tu sesión o auth)
+
+function agregarFavorito(userId, movieId) {
+  fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      userId: userId,
+      movieId: movieId,
+      createdAt: new Date().toISOString()
+    })
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Error al agregar favorito');
+    return res.json();
+  })
+  .then(data => {
+    alert(`Película ${movieId} agregada a favoritos`);
+  })
+  .catch(err => {
+    console.error(err);
+    alert('No se pudo agregar a favoritos');
+  });
+}
+
+// Agregar event listeners a los botones
+document.querySelectorAll('.favorite-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const movieDiv = e.target.closest('.movie');
+    const movieId = movieDiv.getAttribute('data-movie-id');
+    agregarFavorito(userId, movieId);
+  });
+});
+
 }

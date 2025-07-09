@@ -1,5 +1,7 @@
 import { createNewUser } from "../api/usersAPI";
 import { navigate } from "../router";
+import { credentialValidations} from "../Utils/credentialValidations";
+import { showToast } from "../Utils/showToast";
 
 export function register(container) {
   
@@ -9,7 +11,6 @@ export function register(container) {
     <input type="text" placeholder="name" id="regName" required/>
     <input type="email" placeholder="email" id="regEmail" required/>
     <input type="password" placeholder="password" id="regPassword" required/>
-    <input type="tel" placeholder="teléfono" id="phone_number" required/>
     <button type="submit">Register</button>
     </form>
     `;
@@ -20,20 +21,40 @@ export function register(container) {
         event.preventDefault();
 
             // Cojo el value de los inputs
-        const name = document.getElementById("regName").value;
-        const email = document.getElementById("regEmail").value;
-        const password = document.getElementById("regPassword").value;
-        const phone = document.getElementById("phone_number").value;
+        const regName = document.getElementById("regName").value;
+        const regEmail = document.getElementById("regEmail").value;
+        const regPassword = document.getElementById("regPassword").value;
+        // const regPhone = document.getElementById("phone_number").value;
 
-        // creo el objeto de los dattos del ususario
+        // creo el objeto de los dattos del ususario y llamando a las validaciones
 
-        const userData = {
-            name, email, password, phone,
+        const validations = credentialValidations({name: regName, email: regEmail, password: regPassword}) // mediante desestructuracion por eso le tengo que dar una propiedad y hacer referencia
+
+      
+
+        if(validations) {
+            const userData= {
+                regName, regEmail, regPassword, 
+            }
+
+             await createNewUser(userData);
+             console.log(userData);
+             
+        
+            showToast({
+                text: "Te has registrado correctamente",
+                type: "success",
+            });
+
+            navigate("/login");
+            
+            
+
         }
 
-        await createNewUser(userData);
 
-        navigate("/login");
+       
+        
 
 
     })

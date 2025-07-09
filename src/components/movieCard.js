@@ -6,7 +6,8 @@ export function movieCard(movie) {
   card.className = 'movie-card';
   
   // Usar imagen por defecto si no hay poster_path
-  const imageUrl = movie.poster_path 
+ 
+    const imageUrl = movie.poster_path 
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : DEFAULT_IMAGE;
   
@@ -28,38 +29,125 @@ export function movieCard(movie) {
     </div>
   `;
 
-// Función para el mensaje de iniciar sesión para agregar favoritos 
-function showToast(message) {
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
-    </svg>
-    <span>${message}</span>
-  `;
-  
-  document.body.appendChild(toast);
-  
-  // Eliminar el toast después de la animación
-  setTimeout(() => {
-    toast.remove();
-  }, 3000);
-}
 
+  //----------------------------------------------------------
   // EVENTO PARA EL BOTÓN DE FAVORITOS *********************************
-  card.querySelector('.favorite-btn').addEventListener('click', (e) => {
-    e.stopPropagation();
-    // Se añadirá otra cosa para indicar el registro
-    // showToast('Debes iniciar sesión para agregar favoritos');
+// const favButton = card.querySelector('.favorite-btn');
+//   const movieId = movie.id.toString();
+//   // card.querySelector('.favorite-btn').addEventListener('click', (e) => {
+//   //  e.stopPropagation();
+  
+//     // Inicializar estado favorito desde localStorage
+
+  
+
+//   //Inicializar estado favorito
+
+//   const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+//   if (favourites.includes(movieId)) {
+//     favButton.classList.add('favourited');
+//   }
+
+
+//   // Evento para toggle favoritos
+//   favButton.addEventListener('click', (e) => {
+//     e.stopPropagation();
+//     let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+      
+
+//     if (favourites.includes(movieId)) {
+//       favourites = favourites.filter(id => id !== movieId);
+//       favButton.classList.remove('favourited');
+//     } else {
+//       favourites.push(movieId);
+//       favButton.classList.add('favourited');
+//     }
+//     localStorage.setItem('favourites', JSON.stringify(favourites));
+//   });
+//   // });
+
+  
+//   favButton.addEventListener('click', (e) => {
+//     e.stopPropagation();
+//     let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    
+//     if (favourites.includes(movieId)) {
+//       favourites = favourites.filter(id => id !== movieId);
+//     } else {
+//       favourites.push(movieId); //Guardar objeto completo, no solo ID
+//     }
+//     localStorage.setItem('favourites', JSON.stringify(favourites));
+//     });
+  
+
+
+
+
+//   // EVENTO PARA VER DETALLES ******************************************
+//   // card.addEventListener('click', () => {
+//   //   console.log('Ver detalles de:', movie.title);
+//     // TODO: Navegar a página de detalles
+// //   });
+
+//   // return card;
+ 
+// // }
+//  card.addEventListener('click', () => {
+//     window.history.pushState({}, '', `/movie/${movie.id}`);
+//     window.dispatchEvent(new PopStateEvent('popstate'));
+//   });
+//   return card;
+  //--------------------------------------------------------
+
+  // Obtener referencia al botón
+  const favButton = card.querySelector('.favorite-btn');
+  const movieId = movie.id.toString();
+
+  // Leer favoritos actuales del localStorage
+  let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+
+  // Marcar como favorito si ya está en la lista
+  if (favourites.includes(movieId)) {
+    favButton.classList.add('favourited');
+  }
+
+  // Evento para añadir o quitar de favoritos
+  favButton.addEventListener('click', (e) => {
+    e.stopPropagation(); // Evita que se dispare el evento de ver detalles
+
+    let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+
+    if (favourites.includes(movieId)) {
+      favourites = favourites.filter(id => id !== movieId);
+      favButton.classList.remove('favourited');
+    } else {
+      favourites.push(movieId);
+      favButton.classList.add('favourited');
+    }
+
+    localStorage.setItem('favourites', JSON.stringify(favourites));
+
   });
 
+  //--------------------------------------------------------------
 
-  // EVENTO PARA VER DETALLES ******************************************
+  // DEtalles que puso Carmen
+
+  // Evento para ver detalles (puedes expandirlo luego)
+  // card.addEventListener('click', () => {
+  //   console.log('Ver detalles de:', movie.title);
+  //   // TODO: Redirigir o mostrar detalles
+  // });
+
+  // return card;
+  //---------------------------------------------------
+
+
+  // Detalles que puso sheila( sin esto no se ve )
   card.addEventListener('click', () => {
-    console.log('Ver detalles de:', movie.title);
-    // TODO: Navegar a página de detalles
+    window.history.pushState({}, '', `/movie/${movie.id}`);
+    window.dispatchEvent(new PopStateEvent('popstate'));
   });
-
   return card;
 }
+
