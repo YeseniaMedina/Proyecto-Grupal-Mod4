@@ -170,34 +170,37 @@ main {
 }
 
 .favorite-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(0, 0, 0, 0.7);
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
 }
 
 .favorite-btn svg {
-  width: 20px;
-  height: 20px;
-  stroke: white;
-  fill: none;
+    width: 20px;
+    height: 20px;
+    stroke: white;
+    fill: none;
 }
 
-.favorite-btn:hover {
-  background: rgba(229, 9, 20, 0.7);
+/* Estado hover y active */
+.favorite-btn:hover,
+.favorite-btn.active {
+    background: rgba(0, 0, 0, 0.7);;
 }
 
-.favorite-btn:hover svg {
-  fill: white;
+.favorite-btn:hover svg,
+.favorite-btn.active svg {
+    fill: var(--favorite-color);
 }
 
 .card-info {

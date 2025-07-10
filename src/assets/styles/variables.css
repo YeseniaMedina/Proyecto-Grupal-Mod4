@@ -1,6 +1,7 @@
 :root {
   /* Colores */
   --primary-color: #15BF94;
+  --secondary-color: #45d8b4; 
   --background-dark: #000;
   --background-medium: #121212;
   --background-light: #1a1a1a;
@@ -8,6 +9,7 @@
   --text-color: #fff;
   --text-secondary: #aaa;
   --border-color: #444444;
+  --favorite-color: #BF2015;
   
   /* Tamaños */
   --header-height: 70px;
