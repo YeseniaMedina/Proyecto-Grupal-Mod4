@@ -62,10 +62,19 @@ export async function currentUserEdit(currentUser, movieId) {
         const response = await fetch(`https://686183678e74864084463e90.mockapi.io/proyect4/users/${currentUser.id}`);
         const userData = await response.json();
 
+         // Verificar si la película ya está en favoritos
+         const isInFavorites = userData.fav && userData.fav.includes(movieId);
+
         //añadimos la pelicula al array fav
-        const updateFavs = userData.fav.includes(movieId)
-            ? userData.fav
-            : [...(userData.fav || []), movieId];
+        let updateFavs;
+        if (isInFavorites) {
+            // Quitar de favoritos
+            updateFavs = userData.fav.filter(id => id !== movieId);
+        } else {
+            // Añadir a favoritos
+            updateFavs = [...(userData.fav || []), movieId];
+        }
+        
 
         // Actualizar en MockAPI
         let putResponse = await fetch(`https://686183678e74864084463e90.mockapi.io/proyect4/users/${currentUser.id}`, {
@@ -79,8 +88,11 @@ export async function currentUserEdit(currentUser, movieId) {
             throw new Error('Error en la respuesta de MockAPI');
         }
 
-        const data = await putResponse.json();
+        const updatedUser = await putResponse.json();
+        // Actualizar el currentUser en localStorage con los datos más recientes
+        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
         console.log("Usuario actualizado en MockAPI:", data);
+        return updatedUser;
     } catch (error) {
         console.error("Error al actualizar en MockAPI:", error);
         // mostrarMensaje("Error al guardar el perfil en MockAPI", "error");

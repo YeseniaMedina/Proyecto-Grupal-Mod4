@@ -1,3 +1,5 @@
+import { currentUserEdit } from "../api/usersAPI";
+
 // Imagen por defecto para cuando no se encuentra la de TMDB
 const DEFAULT_IMAGE = 'https://wallpapers.com/images/featured/pelicula-9pvmdtvz4cb0xl37.jpg';
 
@@ -104,30 +106,37 @@ export function movieCard(movie) {
   const movieId = movie.id.toString();
 
   // Leer favoritos actuales del localStorage
-  let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+  let currentUser = JSON.parse(localStorage.getItem('currentUser')) || [];
 
   // Marcar como favorito si ya está en la lista
-  if (favourites.includes(movieId)) {
+  if (currentUser && currentUser.fav && currentUser.fav.includes(movieId)) {
     favButton.classList.add('favourited');
   }
 
   // Evento para añadir o quitar de favoritos
-  favButton.addEventListener('click', (e) => {
+  favButton.addEventListener('click', async (e) => {
     e.stopPropagation(); // Evita que se dispare el evento de ver detalles
 
-    let favourites = JSON.parse(localStorage.getItem('favourites')) || []; // reemplazar por traer usuario
+    //let currentUser = JSON.parse(localStorage.getItem('currentUser')) || []; // reemplazar por traer usuario
+    if (!currentUser) return;
 
-
-    if (favourites.includes(movieId)) { // currentUser.fav
-      favourites = favourites.filter(id => id !== movieId);
+    if (currentUser.fav && currentUser.fav.includes(movieId)) { // currentUser.fav
+      currentUser = currentUser.fav.filter(id => id !== movieId);
       favButton.classList.remove('favourited');//los button no
     } else {
       //Peticion PUT de edit de usuario.fav  ...currentUser.fav, lo nuevo
-      favourites.push(movieId);// borrar
-      favButton.classList.add('favourited');
+      //currentUser= await currentUserEdit(currentUser, movieId);
+      // favourites.push(movieId);// borrar
+      //favButton.classList.add('favourited');
+      // Añadir a favoritos
+    if (!currentUser.fav) currentUser.fav = [];
+    currentUser.fav.push(movieId);
+    favButton.classList.add('favourited');
     }
+// Actualizar en la API y localStorage
+   await currentUserEdit(currentUser, movieId);
+    localStorage.setItem('currentUser', JSON.stringify(currentUser)); //actualizar con la nueva info de usuario el localstorage
 
-    localStorage.setItem('favourites', JSON.stringify(favourites)); //actualizar con la nueva info de usuario el localstorage
 
   });
 
