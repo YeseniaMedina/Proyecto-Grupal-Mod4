@@ -1,5 +1,7 @@
 import { renderNavbar } from "../components/navbar";
 import { getCurrentUser } from "../api/usersAPI";
+import { credentialValidations } from "../Utils/credentialValidations";
+import { showToast } from "../Utils/showToast.js";
 import "../assets/styles/profile.css";
 
 export function profile(container, id) {
@@ -103,6 +105,7 @@ export function profile(container, id) {
         
         // Usar el avatar seleccionado
         await guardarYMostrar(nombre, email, avatarSeleccionado);
+        div.style.display = div.style.display === "none" ? "block" : "none";
     });
 
     async function guardarYMostrar(nombre, email, avatar) {
@@ -113,7 +116,20 @@ export function profile(container, id) {
 
         const currentUser = getCurrentUser();
         if (!currentUser || !currentUser.id) {
-            mostrarMensaje("Error: No se encontró el usuario actual", "error");
+            
+            showToast({
+                text: "Error: No se encontró el usuario actual",
+                type: "error",
+              });
+            return;
+        }
+
+        const isValid = credentialValidations({name: nombre, email: email});
+        if (!isValid) {
+            showToast({
+                text: "Error: Credenciales inválidas",
+                type: "error",
+              });
             return;
         }
 
@@ -144,7 +160,12 @@ export function profile(container, id) {
             localStorage.setItem('currentUser', JSON.stringify(data));
 
             // Mostrar mensaje de éxito
-            mostrarMensaje("¡Perfil actualizado con éxito!", "success");
+            
+            showToast({
+                text: "¡Perfil actualizado con éxito!",
+                type: "success",
+              });
+            
             form.reset();
 
         } catch (error) {
