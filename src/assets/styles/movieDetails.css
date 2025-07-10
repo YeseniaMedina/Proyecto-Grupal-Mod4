@@ -1,3 +1,4 @@
+
 .movie-detail-wrapper {
   max-width: 1000px;
   margin: 2rem auto;
@@ -9,7 +10,7 @@
   background: #000;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  box-shadow: 0 1px 30px  var(--secondary-color);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -35,10 +36,10 @@
 
 .play-btn {
   position: absolute;
-  bottom: 15px;
+  bottom: 25px;
   left: 50%;
   transform: translateX(-50%);
-  background: #e50914;
+  background: var(--primary-color);
   border: none;
   border-radius: 50%;
   width: 50px;
@@ -80,7 +81,7 @@
   z-index: 30;
 }
 .back-button:hover {
-  background: rgba(229,9,20,0.8);
+  background: var(--primary-color);
   transform: scale(1.1);
 }
 .back-button svg {
@@ -131,8 +132,8 @@
 
 .fav-action-btn {
   background: transparent;
-  border: 2px solid #e50914;
-  color: #e50914;
+  border: 2px solid  var(--primary-color);
+  color: var(--primary-color);
   padding: 0.5rem 1rem;
   border-radius: 6px;
   font-weight: 600;
@@ -140,17 +141,17 @@
   transition: background 0.3s, color 0.3s;
 }
 .fav-action-btn.favourited {
-  background: #e50914;
+  background: var(--primary-color);
   color: #fff;
 }
 .fav-action-btn:hover {
-  background: #f6121d;
+  background: var(--secondary-color);
   color: #fff;
-  border-color: #f6121d;
+  border-color: var(--secondary-color);
 }
 
 .imdb-btn {
-  background: #e50914;
+  background: var(--primary-color);
   color: #fff;
   text-decoration: none;
   padding: 0.6rem 1rem;
@@ -160,7 +161,7 @@
   display: inline-block;
 }
 .imdb-btn:hover {
-  background: #f6121d;
+  background: var(--secondary-color);
 }
 
 .loading,
@@ -169,8 +170,8 @@
   padding: 2rem;
   font-size: 1.1rem;
 }
-.loading { color: #e50914; }
-.error   { color: #ff6b6b; }
+.loading { color: var(--primary-color); }
+.error   { color: var(--secondary-color); }
 
 @media (min-width: 768px) {
   .movie-detail {
@@ -224,7 +225,7 @@
   position: absolute;
   top: -25px;
   right: -25px;
-  background: #e50914;
+  background: var(--primary-color);
   border: none;
   border-radius: 50%;
   width: 35px;

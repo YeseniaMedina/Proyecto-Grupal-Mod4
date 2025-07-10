@@ -8,7 +8,7 @@
 }*/
 
 .profile-h1 {
-  color: #bf1515;
+  color: var(--primary-color);
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 1.5%;
@@ -43,8 +43,8 @@
   display: flex;
   justify-self: center;
   justify-content: center;
-  border: #bf1515;
-  background-color: #bf1515;
+  border: var(--primary-color);
+  background-color: var(--primary-color);
   color: white;
   padding: 0.5em;
   margin: 5%;
@@ -55,7 +55,7 @@
 
 .profile-fav:hover {
   background-color: #111111;
-  box-shadow: #bf1515;
+  box-shadow: var(--primary-color);
 }
 
 .profile-info {
@@ -88,7 +88,7 @@
 .profileBtn {
   padding: 3%;
   width: 100%;
-  background-color: #bf1515;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   cursor: pointer;
@@ -98,11 +98,11 @@
 
 .profileBtn:hover {
   background-color: #111111;
-  box-shadow: #bf1515;
+  box-shadow: var(--primary-color);
 }
 
 .mensaje-perfil {
-  color: #bf1515;
+  color: var(--primary-color);
   padding: auto;
   margin-top: 1.5em;
   border-radius: 5px;
