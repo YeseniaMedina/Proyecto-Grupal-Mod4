@@ -17,7 +17,7 @@
 .profile-container {
   background-color: black;
   color: white;
-  padding: 2em;
+  padding: 1em;
   border-radius: 0.8em;
   width: 50%;
   margin: 1% 25% 2% 25%;
@@ -64,6 +64,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
 }
 
 #profileForm {
@@ -80,9 +81,32 @@
   width: 94%;
   border-radius: 0.2em;
   border-style: none;
-  background-color: #111111;
+  background-color: var(--background-light);
   color: white;
   font-size: 1.05em;
+  margin-bottom: 1rem;
+}
+
+/* Grid para avatares */
+.grid-avatars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.grid-avatars img.avatar-option {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.grid-avatars img.avatar-option:hover {
+  transform: scale(1.05);
 }
 
 .profileBtn {
@@ -97,7 +121,7 @@
 }
 
 .profileBtn:hover {
-  background-color: #111111;
+  background-color: var(--background-light);
   box-shadow: var(--primary-color);
 }
 
