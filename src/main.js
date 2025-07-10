@@ -3,7 +3,7 @@ import { router, handleLinks } from "./router.js";
 import { home } from './views/home.js';
 import './assets/styles/reset.css';
 import './assets/styles/variables.css';
-import './assets/styles/header.css';
+import './assets/styles/navbar.css';
 
 
 /*// Función para inicializar la aplicación
