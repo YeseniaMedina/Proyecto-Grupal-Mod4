@@ -3,7 +3,7 @@ import { router, handleLinks } from "./router.js";
 import { home } from './views/home.js';
 import './assets/styles/reset.css';
 import './assets/styles/variables.css';
-import './assets/styles/header.css';
+import './assets/styles/navbar.css';
 
 
 /*// Función para inicializar la aplicación
@@ -34,6 +34,8 @@ function initApp() {
 
 // Inicializar la aplicación cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', initApp);*/
+
+  // Configurar el menú hamburguesa
 
 document.addEventListener("DOMContentLoaded", () => {
   renderNavbar(document.getElementById('navbar'));

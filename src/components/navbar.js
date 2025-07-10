@@ -50,8 +50,21 @@ export function renderNavbar(container) {
             </a>
           `
               : `
-            <a href="/login" data-link>Ingresar</a>
-            <a href="/register" data-link>Registrarse</a>
+            <a href="/login" data-link title="Ingresar">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" y1="12" x2="3" y2="12"/>
+              </svg>
+            </a>
+            <a href="/register" data-link title="Registrarse">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="8.5" cy="7" r="4"/>
+                <line x1="20" y1="8" x2="20" y2="14"/>
+                <line x1="23" y1="11" x2="17" y2="11"/>
+              </svg>
+            </a>
           `
           }
         </nav>
@@ -83,6 +96,36 @@ export function renderNavbar(container) {
       container.prepend(header);
     }
   
+
+    // // 1. Configurar el menú hamburguesa
+    const hamburgerBtn = header.querySelector(".hamburger-btn");
+    const mobileMenu = header.querySelector(".mobile-menu");
+
+    if (hamburgerBtn && mobileMenu) {
+      hamburgerBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("active");
+      });
+    }
+
+    // // 2. Cerrar el menú al hacer clic en cualquier enlace del menú móvil
+    const mobileLinks = header.querySelectorAll(".mobile-menu [data-link]");
+    mobileLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("active");
+      });
+    });
+
+    // 3. Cerrar el menú al hacer logout (versión móvil)
+    if (currentUser) {
+      const logoutBtnMobile = header.querySelector("#logoutBtnMobile");
+      if (logoutBtnMobile) {
+        logoutBtnMobile.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+        });
+      }
+    }
+
+
     // Evento logout (desktop)
     if (currentUser) {
       const logoutBtn = header.querySelector("#logoutBtn");

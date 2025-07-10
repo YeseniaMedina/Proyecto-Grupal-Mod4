@@ -116,6 +116,7 @@ export function movieCard(movie) {
   // Evento para añadir o quitar de favoritos
   favButton.addEventListener('click', async (e) => {
     e.stopPropagation(); // Evita que se dispare el evento de ver detalles
+    e.currentTarget.classList.toggle('active'); // Añade o remueve la clase active, Corazón rojo
 
     //let currentUser = JSON.parse(localStorage.getItem('currentUser')) || []; // reemplazar por traer usuario
     if (!currentUser) return;

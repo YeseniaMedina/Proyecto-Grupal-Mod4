@@ -9,25 +9,28 @@ body {
   font-size: 100%;
   line-height: 1.5;
   font-family: "Arial", sans-serif;
-  background-color: #121212;
+  background-color: var(--background-dark);
   color: #fff;
+  padding: 3rem 0rem;
 }
 /* Contenedor principal de las favoritas */
 .favourite-list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
-  margin-left: 10em;
-  margin-right: 10em;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 3rem;
+  /* margin-left: 10em;
+  margin-right: 10em; */
+  padding: 3rem;
+  margin-left: 1.5rem;
 }
 
 /* Cada card individual */
 .movie-card-fav {
-  background-color: #1e1e1e;
+  background-color: var(--background-dark);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   overflow: hidden;
-  width: 250px; /* fijo para que coincida con la imagen */
+  width: 200px; /* fijo para que coincida con la imagen */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,7 +75,7 @@ body {
   padding: 8px 16px;
   border: none;
   border-radius: 5px;
-  background-color: #bf1515;
+  background-color: var(--primary-color);
   color: white;
   font-weight: 600;
   cursor: pointer;
@@ -89,3 +92,32 @@ body {
   color: white;
   margin-top: auto;
 }
+
+
+
+@media (min-width: 768px) {
+.favourite-list {
+  gap: 5rem;
+  /* margin-left: 10em;
+  margin-right: 10em; */
+  padding: 3rem;
+}
+.movie-card-fav {
+  width: 150px; /* fijo para que coincida con la imagen */
+}
+
+}
+ 
+@media (min-width: 1025px) {
+
+.movie-card-fav {
+  width: 200px; /* fijo para que coincida con la imagen */
+}
+
+
+
+
+}
+
+
+

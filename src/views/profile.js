@@ -25,7 +25,7 @@ export function profile(container, id) {
         <form id="profileForm">
           <input class="profileInput" type="text" id="inputNombre" placeholder="Nombre"  />
           <input class="profileInput" type="email" id="inputEmail" placeholder="Email"  />
-          <div id="avatarGallery" class="avatar-gallery"></div>
+          <div id="avatarGallery" class="avatar-gallery grid-avatars"></div>
         
           <button class="profileBtn" type="submit">Guardar</button>
           <div id="mensajePerfil" class="mensaje-perfil" style="display: none;"></div>
