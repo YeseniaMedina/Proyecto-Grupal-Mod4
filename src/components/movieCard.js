@@ -1,16 +1,18 @@
+import { currentUserEdit } from "../api/usersAPI";
+
 // Imagen por defecto para cuando no se encuentra la de TMDB
 const DEFAULT_IMAGE = 'https://wallpapers.com/images/featured/pelicula-9pvmdtvz4cb0xl37.jpg';
 
 export function movieCard(movie) {
   const card = document.createElement('div');
   card.className = 'movie-card';
-  
+
   // Usar imagen por defecto si no hay poster_path
- 
-    const imageUrl = movie.poster_path 
+
+  const imageUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : DEFAULT_IMAGE;
-  
+
   card.innerHTML = `
     <div class="card-image">
       <img src="${imageUrl}" alt="${movie.title}" loading="lazy">
@@ -32,71 +34,71 @@ export function movieCard(movie) {
 
   //----------------------------------------------------------
   // EVENTO PARA EL BOTÓN DE FAVORITOS *********************************
-// const favButton = card.querySelector('.favorite-btn');
-//   const movieId = movie.id.toString();
-//   // card.querySelector('.favorite-btn').addEventListener('click', (e) => {
-//   //  e.stopPropagation();
-  
-//     // Inicializar estado favorito desde localStorage
+  // const favButton = card.querySelector('.favorite-btn');
+  //   const movieId = movie.id.toString();
+  //   // card.querySelector('.favorite-btn').addEventListener('click', (e) => {
+  //   //  e.stopPropagation();
 
-  
-
-//   //Inicializar estado favorito
-
-//   const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
-//   if (favourites.includes(movieId)) {
-//     favButton.classList.add('favourited');
-//   }
-
-
-//   // Evento para toggle favoritos
-//   favButton.addEventListener('click', (e) => {
-//     e.stopPropagation();
-//     let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
-      
-
-//     if (favourites.includes(movieId)) {
-//       favourites = favourites.filter(id => id !== movieId);
-//       favButton.classList.remove('favourited');
-//     } else {
-//       favourites.push(movieId);
-//       favButton.classList.add('favourited');
-//     }
-//     localStorage.setItem('favourites', JSON.stringify(favourites));
-//   });
-//   // });
-
-  
-//   favButton.addEventListener('click', (e) => {
-//     e.stopPropagation();
-//     let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
-    
-//     if (favourites.includes(movieId)) {
-//       favourites = favourites.filter(id => id !== movieId);
-//     } else {
-//       favourites.push(movieId); //Guardar objeto completo, no solo ID
-//     }
-//     localStorage.setItem('favourites', JSON.stringify(favourites));
-//     });
-  
+  //     // Inicializar estado favorito desde localStorage
 
 
 
+  //   //Inicializar estado favorito
 
-//   // EVENTO PARA VER DETALLES ******************************************
-//   // card.addEventListener('click', () => {
-//   //   console.log('Ver detalles de:', movie.title);
-//     // TODO: Navegar a página de detalles
-// //   });
+  //   const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+  //   if (favourites.includes(movieId)) {
+  //     favButton.classList.add('favourited');
+  //   }
 
-//   // return card;
- 
-// // }
-//  card.addEventListener('click', () => {
-//     window.history.pushState({}, '', `/movie/${movie.id}`);
-//     window.dispatchEvent(new PopStateEvent('popstate'));
-//   });
-//   return card;
+
+  //   // Evento para toggle favoritos
+  //   favButton.addEventListener('click', (e) => {
+  //     e.stopPropagation();
+  //     let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+
+
+  //     if (favourites.includes(movieId)) {
+  //       favourites = favourites.filter(id => id !== movieId);
+  //       favButton.classList.remove('favourited');
+  //     } else {
+  //       favourites.push(movieId);
+  //       favButton.classList.add('favourited');
+  //     }
+  //     localStorage.setItem('favourites', JSON.stringify(favourites));
+  //   });
+  //   // });
+
+
+  //   favButton.addEventListener('click', (e) => {
+  //     e.stopPropagation();
+  //     let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+
+  //     if (favourites.includes(movieId)) {
+  //       favourites = favourites.filter(id => id !== movieId);
+  //     } else {
+  //       favourites.push(movieId); //Guardar objeto completo, no solo ID
+  //     }
+  //     localStorage.setItem('favourites', JSON.stringify(favourites));
+  //     });
+
+
+
+
+
+  //   // EVENTO PARA VER DETALLES ******************************************
+  //   // card.addEventListener('click', () => {
+  //   //   console.log('Ver detalles de:', movie.title);
+  //     // TODO: Navegar a página de detalles
+  // //   });
+
+  //   // return card;
+
+  // // }
+  //  card.addEventListener('click', () => {
+  //     window.history.pushState({}, '', `/movie/${movie.id}`);
+  //     window.dispatchEvent(new PopStateEvent('popstate'));
+  //   });
+  //   return card;
   //--------------------------------------------------------
 
   // Obtener referencia al botón
@@ -104,28 +106,37 @@ export function movieCard(movie) {
   const movieId = movie.id.toString();
 
   // Leer favoritos actuales del localStorage
-  let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+  let currentUser = JSON.parse(localStorage.getItem('currentUser')) || [];
 
   // Marcar como favorito si ya está en la lista
-  if (favourites.includes(movieId)) {
+  if (currentUser && currentUser.fav && currentUser.fav.includes(movieId)) {
     favButton.classList.add('favourited');
   }
 
   // Evento para añadir o quitar de favoritos
-  favButton.addEventListener('click', (e) => {
+  favButton.addEventListener('click', async (e) => {
     e.stopPropagation(); // Evita que se dispare el evento de ver detalles
 
-    let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    //let currentUser = JSON.parse(localStorage.getItem('currentUser')) || []; // reemplazar por traer usuario
+    if (!currentUser) return;
 
-    if (favourites.includes(movieId)) {
-      favourites = favourites.filter(id => id !== movieId);
-      favButton.classList.remove('favourited');
+    if (currentUser.fav && currentUser.fav.includes(movieId)) { // currentUser.fav
+      currentUser = currentUser.fav.filter(id => id !== movieId);
+      favButton.classList.remove('favourited');//los button no
     } else {
-      favourites.push(movieId);
+      //Peticion PUT de edit de usuario.fav  ...currentUser.fav, lo nuevo
+      //currentUser= await currentUserEdit(currentUser, movieId);
+      // favourites.push(movieId);// borrar
+      //favButton.classList.add('favourited');
+      // Añadir a favoritos
+      if (!currentUser.fav) currentUser.fav = [];
+      currentUser.fav.push(movieId);
       favButton.classList.add('favourited');
     }
+    // Actualizar en la API y localStorage
+    await currentUserEdit(currentUser, movieId);
+    localStorage.setItem('currentUser', JSON.stringify(currentUser)); //actualizar con la nueva info de usuario el localstorage
 
-    localStorage.setItem('favourites', JSON.stringify(favourites));
 
   });
 
