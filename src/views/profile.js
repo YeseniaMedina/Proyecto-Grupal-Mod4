@@ -79,15 +79,15 @@ export function profile(container, id) {
         emailSpan.textContent = datosGuardados.email || "...";
 
         // Cargar avatar guardado
-        if (datosGuardados.avatar || datosGuardados.foto) {
-            const avatarGuardado = datosGuardados.avatar || datosGuardados.foto;
+        if (datosGuardados.avatar /*|| datosGuardados.foto*/) {
+            const avatarGuardado = datosGuardados.avatar /*|| datosGuardados.foto*/;
             selectedAvatar.src = avatarGuardado;
             avatarSeleccionado = avatarGuardado;
             highlightAvatar(avatarGuardado);
         } else {
             // Si no hay avatar guardado, usar el por defecto
             selectedAvatar.src = avatarSeleccionado;
-            highlightAvatar(avatarSeleccionado);
+            /*highlightAvatar(avatarSeleccionado);*/
         }
     } else {
         // Si no hay usuario, usar avatar por defecto

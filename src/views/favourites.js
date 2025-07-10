@@ -1,4 +1,4 @@
-
+import { getCurrentUser } from "../api/usersAPI";
   import "../assets/styles/favourites.css";
 
   const API_KEY = "f363bbdcb9461f3aaf0cb603bbbc93b6";
@@ -25,14 +25,16 @@
   export async function favourites(container, id = null) {
     const favList = resetContainer(container);
 
-    const storedIds = JSON.parse(localStorage.getItem("favourites")) || [];
+    const storedIds = JSON.parse(localStorage.getItem("favourites")) || []; // storeids por currentUser y cambiar favourites por currentUser
+   
 
-    if (storedIds.length === 0) {
+    
+    if (storedIds.length === 0) { // currentUser.fav
       favList.innerHTML = "<p>No tienes películas favoritas aún.</p>";
       return;
     }
     //Traer los datos de cada película
-    for (const movieId of storedIds) {
+    for (const movieId of storedIds) { //(linea 37 coja usuario editado) //storedIds por currentUser.fav
       try {
         const movie = await fetchMovieDetails(movieId); // para traer la info completa
         const imageUrl = movie.poster_path

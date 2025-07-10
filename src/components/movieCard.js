@@ -115,17 +115,19 @@ export function movieCard(movie) {
   favButton.addEventListener('click', (e) => {
     e.stopPropagation(); // Evita que se dispare el evento de ver detalles
 
-    let favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+    let favourites = JSON.parse(localStorage.getItem('favourites')) || []; // reemplazar por traer usuario
 
-    if (favourites.includes(movieId)) {
+
+    if (favourites.includes(movieId)) { // currentUser.fav
       favourites = favourites.filter(id => id !== movieId);
-      favButton.classList.remove('favourited');
+      favButton.classList.remove('favourited');//los button no
     } else {
-      favourites.push(movieId);
+      //Peticion PUT de edit de usuario.fav  ...currentUser.fav, lo nuevo
+      favourites.push(movieId);// borrar
       favButton.classList.add('favourited');
     }
 
-    localStorage.setItem('favourites', JSON.stringify(favourites));
+    localStorage.setItem('favourites', JSON.stringify(favourites)); //actualizar con la nueva info de usuario el localstorage
 
   });
 
