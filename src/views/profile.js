@@ -7,7 +7,7 @@ export function profile(container, id) {
     <h1 class="profile-h1">Mi Perfil</h1>
     <div class="basic-profile">
         <div class="profile-photo">
-        <img id="fotoPerfil" src="./assets/images/3538491_editado.jpg" alt="Foto de perfil" />
+        <img id="selectedAvatar" class="avatar-preview" src="" alt="Avatar seleccionado" />
         </div>
         <div class="profile-fav">
             <a href="/fav" class="profile-link">Mis favoritos</a>
@@ -15,7 +15,6 @@ export function profile(container, id) {
         <div class="profile-info">
             <p><strong>Nombre:</strong> <span id="nombre">---</span></p>
             <p><strong>Email:</strong> <span id="email">---</span></p>
-            <p><strong>Película favorita:</strong> <span id="peliculafavorita">---</span></p>
         </div>
         <br>
     </div>
@@ -24,80 +23,145 @@ export function profile(container, id) {
         <form id="profileForm">
           <input class="profileInput" type="text" id="inputNombre" placeholder="Nombre"  />
           <input class="profileInput" type="email" id="inputEmail" placeholder="Email"  />
-          <input class="profileInput" type="text" id="inputPeliculaFavorita" placeholder="Pelicula favorita" required />
-          <input class="profileInput" type="file" id="inputFoto" accept="image/*" />
+          <div id="avatarGallery" class="avatar-gallery"></div>
+        
           <button class="profileBtn" type="submit">Guardar</button>
           <div id="mensajePerfil" class="mensaje-perfil" style="display: none;"></div>
         </form>
     </div>
   </div>`;
+
+    const avatarGallery = document.getElementById("avatarGallery");
+    const selectedAvatar = document.getElementById("selectedAvatar");
+
+    //AVATARES
+    const avatars = [
+        new URL('../assets/images/1.png', import.meta.url).href,
+        new URL('../assets/images/2.png', import.meta.url).href,
+        new URL('../assets/images/3.png', import.meta.url).href,
+        new URL('../assets/images/4.png', import.meta.url).href,
+        new URL('../assets/images/5.png', import.meta.url).href,
+        new URL('../assets/images/6.png', import.meta.url).href,
+        new URL('../assets/images/7.png', import.meta.url).href,
+        new URL('../assets/images/8.png', import.meta.url).href,
+    ];
+
+    let avatarSeleccionado = avatars[0]; //valor por defecto
+
+    //Mostrar AVATARES
+    avatars.forEach(url => {
+        const img = document.createElement("img");
+        img.src = url;
+        img.classList.add("avatar-option");
+        img.addEventListener("click", () => {
+            avatarSeleccionado = url;
+            selectedAvatar.src = url;
+            highlightAvatar(url);
+        });
+        avatarGallery.appendChild(img);
+    });
+
+    function highlightAvatar(selectedUrl) {
+        document.querySelectorAll(".avatar-option").forEach(img => {
+            img.classList.toggle("selected", img.src === selectedUrl);
+        });
+    }
+
+    //VALORES DOM
     const form = document.getElementById('profileForm');
     const nombreSpan = document.getElementById('nombre');
     const emailSpan = document.getElementById('email');
-    const peliculafavoritaSpan = document.getElementById('peliculafavorita');
-    const fotoPerfil = document.getElementById('fotoPerfil');
-    const inputFoto = document.getElementById('inputFoto');
 
-    //Cargar datos guardados y actualizar vista **aquí mismo**
-    const datosGuardados = getCurrentUser(); //Cambie el "perfil" por el current user para ver quien estaba logueado y se guardaran sus datos y por la funcion getCurrentUser para ver quien este logueado
+    //Cargar datos guardados y actualizar vista
+    const datosGuardados = getCurrentUser();
     if (datosGuardados) {
         nombreSpan.textContent = datosGuardados.name || "...";
         emailSpan.textContent = datosGuardados.email || "...";
 
-        // haY QUE VER PORQUE ESTO NO ESTA EN MOCKAPI POR LO TANTO SOLO SE GUARDARIA EN EL LOCAL STORAGE
-        
-        // peliculafavoritaSpan.textContent = datosGuardados.peliculafavorita || "...";
-        if (datosGuardados.foto) {
-        fotoPerfil.src = datosGuardados.foto;
+        // Cargar avatar guardado
+        if (datosGuardados.avatar || datosGuardados.foto) {
+            const avatarGuardado = datosGuardados.avatar || datosGuardados.foto;
+            selectedAvatar.src = avatarGuardado;
+            avatarSeleccionado = avatarGuardado;
+            highlightAvatar(avatarGuardado);
+        } else {
+            // Si no hay avatar guardado, usar el por defecto
+            selectedAvatar.src = avatarSeleccionado;
+            highlightAvatar(avatarSeleccionado);
         }
-    };
-    
-    form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const nombre = document.getElementById('inputNombre').value;
-    const email = document.getElementById('inputEmail').value;
-    const peliculafavorita = document.getElementById('inputPeliculaFavorita').value;
-    
-    //Foto de perfil
-    const fotoFile = inputFoto.files[0];
-    if (fotoFile) {
-        const reader = new FileReader();
-        reader.onloadend = function () {
-            const fotoBase64 = reader.result;
-
-            guardarYMostrar(nombre, email, peliculafavorita, fotoBase64);
-        
-        };     
-        reader.readAsDataURL(fotoFile);
     } else {
-        const datosGuardados = JSON.parse(localStorage.getItem('perfil'));
-        const fotoBase64 = datosGuardados?.foto || '3538491_editado.jpg';
-        guardarYMostrar(nombre, email, peliculafavorita, fotoBase64);
+        // Si no hay usuario, usar avatar por defecto
+        selectedAvatar.src = avatarSeleccionado;
+        highlightAvatar(avatarSeleccionado);
     }
+    
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const nombre = document.getElementById('inputNombre').value.trim();
+        const email = document.getElementById('inputEmail').value.trim();
+        
+        // Usar el avatar seleccionado
+        await guardarYMostrar(nombre, email, avatarSeleccionado);
     });
 
-    function guardarYMostrar(nombre, email, peliculafavorita, foto) {
-    nombreSpan.textContent = nombre;
-    emailSpan.textContent = email;
-    peliculafavoritaSpan.textContent = peliculafavorita;
-    fotoPerfil.src = foto;
+    async function guardarYMostrar(nombre, email, avatar) {
+        // Actualizar la vista
+        if (nombre) nombreSpan.textContent = nombre;
+        if (email) emailSpan.textContent = email;
+        selectedAvatar.src = avatar;
 
-    const perfil = { nombre, email, peliculafavorita, foto };
-    localStorage.setItem('perfil', JSON.stringify(perfil));
-    form.reset();
-    
+        const currentUser = getCurrentUser();
+        if (!currentUser || !currentUser.id) {
+            mostrarMensaje("Error: No se encontró el usuario actual", "error");
+            return;
+        }
 
-    //Mensaje de éxito
-    const mensajeDiv = document.getElementById("mensajePerfil");
-    mensajeDiv.textContent = "¡Perfil actualizado con éxito!";
-    mensajeDiv.style.display = "block";
+        // Preparar datos para actualizar
+        const datosActualizados = {
+            ...currentUser,
+            name: nombre || currentUser.name,
+            email: email || currentUser.email,
+            avatar: avatar
+        };
 
-    //Ocultar mensaje de éxito
-    setTimeout(() => {
-        mensajeDiv.style.display = "none";
-    }, 3000);
+        try {
+            // Actualizar en MockAPI
+            const response = await fetch(`https://686183678e74864084463e90.mockapi.io/proyect4/users/${currentUser.id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosActualizados),
+            });
 
+            if (!response.ok) {
+                throw new Error('Error en la respuesta de MockAPI');
+            }
+
+            const data = await response.json();
+            console.log("Usuario actualizado en MockAPI:", data);
+
+            // Actualizar localStorage con los datos de la API
+            localStorage.setItem('currentUser', JSON.stringify(data));
+
+            // Mostrar mensaje de éxito
+            mostrarMensaje("¡Perfil actualizado con éxito!", "success");
+            form.reset();
+
+        } catch (error) {
+            console.error("Error al actualizar en MockAPI:", error);
+            mostrarMensaje("Error al guardar el perfil en MockAPI", "error");
+        }
+    }
+
+    function mostrarMensaje(texto, tipo = "success") {
+        const mensajeDiv = document.getElementById("mensajePerfil");
+        mensajeDiv.textContent = texto;
+        mensajeDiv.style.display = "block";
+        mensajeDiv.className = `mensaje-perfil ${tipo}`;
+
+        setTimeout(() => {
+            mensajeDiv.style.display = "none";
+        }, 3000);
     }
 
     //Visibilidad de la caja (toggleBox)

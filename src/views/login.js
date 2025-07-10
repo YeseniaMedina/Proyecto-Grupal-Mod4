@@ -2,15 +2,18 @@ import { getAllUsers } from "../api/usersAPI";
 import { renderNavbar } from "../components/navbar";
 import { navigate } from "../router";
 import { showToast } from "../Utils/showToast";
+import "../assets/styles/login.css";
 
 export function login(container) {
   container.innerHTML = `
-    <h1>Login</h1>
+    <div class="login-container">
     <form id="loginForm">
+    <h1>Login</h1>
     <input type="email" placeholder="email" id="logEmail" required/>
     <input type="password" placeholder="password" id="logPassword" required/>
     <button id="submit" class="loginBtn">Login</button>
-    <button id="goRegister">register</button></form>
+    <small>¿Todavia no tienes cuenta? <a href="#" id="goRegister">Registrarme</a></small>
+    </div>
     
     `;
 
