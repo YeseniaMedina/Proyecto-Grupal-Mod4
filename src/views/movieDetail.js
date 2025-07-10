@@ -1,4 +1,5 @@
 import { getMovieDetails, getMovieVideos } from '../api/movieAPI.js';
+import { currentUserEdit } from '../api/usersAPI.js';
 import '../assets/styles/movieDetails.css';
 
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w500';
@@ -23,8 +24,8 @@ export async function detail(container, id) {
     const directors = movie.credits?.crew.filter(c => c.job === 'Director').map(d => d.name).join(', ') || 'N/A';
     const producers = movie.credits?.crew.filter(c => c.job === 'Producer').map(p => p.name).join(', ') || 'N/A';
 
-    let favs = JSON.parse(localStorage.getItem('favourites')) || [];
-    const isFavourited = favs.includes(movie.id.toString());
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const isFavourited = currentUser && currentUser.fav && currentUser.fav.includes(movie.id.toString());
 
     container.innerHTML = `
       <div class="movie-detail-wrapper">
@@ -109,10 +110,32 @@ export async function detail(container, id) {
     }
 
     closeBtn.addEventListener('click', () => { modal.classList.remove('active'); iframe.src = ''; });
-    modal.addEventListener('click', e => { if (e.target === modal) { modal.classList.remove('active'); iframe.src = ''; }});
+    modal.addEventListener('click', e => { if (e.target === modal) { modal.classList.remove('active'); iframe.src = ''; } });
 
-    favBtn.addEventListener('click', () => {
-      let current = JSON.parse(localStorage.getItem('favourites')) || [];
+    favBtn.addEventListener('click', async() => {
+      let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const key = movie.id.toString();
+
+  if (!currentUser) return;
+
+  if (currentUser.fav && currentUser.fav.includes(key)) {
+    // Quitar de favoritos
+    currentUser.fav = currentUser.fav.filter(id => id !== key);
+    favBtn.classList.remove('favourited');
+    favBtn.textContent = 'Add to Favourites';
+  } else {
+    // Añadir a favoritos
+    if (!currentUser.fav) currentUser.fav = [];
+    currentUser.fav.push(key);
+    favBtn.classList.add('favourited');
+    favBtn.textContent = 'Remove from Favourites';
+  }
+
+  // Actualizar en la API y localStorage
+  await currentUserEdit(currentUser, key);
+
+  // El localStorage se actualiza dentro de currentUserEdit
+      /*let current = JSON.parse(localStorage.getItem('favourites')) || [];
       const key = movie.id.toString();
       if (current.includes(key)) {
         current = current.filter(x => x !== key);
@@ -121,7 +144,7 @@ export async function detail(container, id) {
         current.push(key);
         favBtn.classList.add('favourited'); favBtn.textContent = 'Remove from Favourites';
       }
-      localStorage.setItem('favourites', JSON.stringify(current));
+      localStorage.setItem('favourites', JSON.stringify(current));*/
     });
 
   } catch (error) {

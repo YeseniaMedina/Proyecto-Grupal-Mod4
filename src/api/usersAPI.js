@@ -51,34 +51,30 @@ export async function getAllUsers() {
 }
 
 export function getCurrentUser() {
-    const loadUser = localStorage.getItem("currentUser");
-
-    return loadUser ? JSON.parse(loadUser) : null;
+    try {
+        const loadUser = localStorage.getItem("currentUser");
+        
+        if (!loadUser || loadUser === 'null' || loadUser === 'undefined') {
+            return null;
+        }
+        
+        return JSON.parse(loadUser);
+    } catch (error) {
+        console.error('Error parsing currentUser from localStorage:', error);
+        // Limpiar el localStorage si hay datos corruptos
+        localStorage.removeItem("currentUser");
+        return null;
+    }
 }
 
 
 export async function currentUserEdit(currentUser, movieId) {
     try {
-        const response = await fetch(`https://686183678e74864084463e90.mockapi.io/proyect4/users/${currentUser.id}`);
-        const userData = await response.json();
-
-         // Verificar si la película ya está en favoritos
-         const isInFavorites = userData.fav && userData.fav.includes(movieId);
-
-        //añadimos la pelicula al array fav
-        let updateFavs;
-        if (isInFavorites) {
-            // Quitar de favoritos
-            updateFavs = userData.fav.filter(id => id !== movieId);
-        } else {
-            // Añadir a favoritos
-            updateFavs = [...(userData.fav || []), movieId];
-        }
-        
+        // Usar directamente el currentUser que ya tiene el array fav modificado
+        const updateFavs = currentUser.fav || [];
 
         // Actualizar en MockAPI
-        let putResponse = await fetch(`https://686183678e74864084463e90.mockapi.io/proyect4/users/${currentUser.id}`, {
-
+        const putResponse = await fetch(`${baseUrl}/users/${currentUser.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ fav: updateFavs }),
@@ -89,13 +85,14 @@ export async function currentUserEdit(currentUser, movieId) {
         }
 
         const updatedUser = await putResponse.json();
+        
         // Actualizar el currentUser en localStorage con los datos más recientes
         localStorage.setItem('currentUser', JSON.stringify(updatedUser));
-        console.log("Usuario actualizado en MockAPI:", data);
+        console.log("Usuario actualizado en MockAPI:", updatedUser);
         return updatedUser;
     } catch (error) {
         console.error("Error al actualizar en MockAPI:", error);
-        // mostrarMensaje("Error al guardar el perfil en MockAPI", "error");
+        throw error;
     }
 }
 

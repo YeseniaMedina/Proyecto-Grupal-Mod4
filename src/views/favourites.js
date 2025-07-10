@@ -1,4 +1,4 @@
-import { getCurrentUser } from "../api/usersAPI";
+import { getCurrentUser, currentUserEdit } from "../api/usersAPI";
 import "../assets/styles/favourites.css";
 
 const API_KEY = "f363bbdcb9461f3aaf0cb603bbbc93b6";
@@ -25,17 +25,15 @@ function resetContainer(container) {
 export async function favourites(container, id = null) {
   const favList = resetContainer(container);
 
-  //const storedIds = JSON.parse(localStorage.getItem("favourites")) || []; // storeids por currentUser y cambiar favourites por currentUser
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const storedIds = currentUser && currentUser.fav ? currentUser.fav : [];
 
-
-  if (storedIds.length === 0) { // currentUser.fav
+  if (storedIds.length === 0) {
     favList.innerHTML = "<p>No tienes películas favoritas aún.</p>";
     return;
   }
-  //Traer los datos de cada película
-  for (const movieId of storedIds) { //(linea 37 coja usuario editado) //storedIds por currentUser.fav
+  // Traer los datos de cada película
+  for (const movieId of storedIds) {
     try {
       const movie = await fetchMovieDetails(movieId); // para traer la info completa
       const imageUrl = movie.poster_path
@@ -75,18 +73,14 @@ export async function favourites(container, id = null) {
         // Obtener usuario actual
         let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-        // Eliminar de favoritos
-        //const updatedFavs = storedIds.filter(
-        //  (id) => id.toString() !== movie.id.toString()
-        //);
-
         // Quitar de favoritos
-    currentUser.fav = currentUser.fav.filter(id => id.toString() !== movie.id.toString());
+        currentUser.fav = currentUser.fav.filter(id => id.toString() !== movie.id.toString());
 
-        await currentUserEdit(currentUser, movie.id);
-        
+        // Actualizar en la API y localStorage
+        const updatedUser = await currentUserEdit(currentUser, movie.id);
+
         // Actualizar la vista llamando de nuevo a la función para refrescar la lista
-        favourites(container, id);
+        favourites(container, updatedUser.id);
       });
 
       favList.appendChild(movieDiv);
