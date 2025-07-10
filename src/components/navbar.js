@@ -96,6 +96,36 @@ export function renderNavbar(container) {
       container.prepend(header);
     }
   
+
+    // // 1. Configurar el menú hamburguesa
+    const hamburgerBtn = header.querySelector(".hamburger-btn");
+    const mobileMenu = header.querySelector(".mobile-menu");
+
+    if (hamburgerBtn && mobileMenu) {
+      hamburgerBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("active");
+      });
+    }
+
+    // // 2. Cerrar el menú al hacer clic en cualquier enlace del menú móvil
+    const mobileLinks = header.querySelectorAll(".mobile-menu [data-link]");
+    mobileLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("active");
+      });
+    });
+
+    // 3. Cerrar el menú al hacer logout (versión móvil)
+    if (currentUser) {
+      const logoutBtnMobile = header.querySelector("#logoutBtnMobile");
+      if (logoutBtnMobile) {
+        logoutBtnMobile.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+        });
+      }
+    }
+
+
     // Evento logout (desktop)
     if (currentUser) {
       const logoutBtn = header.querySelector("#logoutBtn");

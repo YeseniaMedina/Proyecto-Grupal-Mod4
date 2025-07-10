@@ -35,6 +35,8 @@ function initApp() {
 // Inicializar la aplicación cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', initApp);*/
 
+  // Configurar el menú hamburguesa
+
 document.addEventListener("DOMContentLoaded", () => {
   renderNavbar(document.getElementById('navbar'));
   handleLinks();

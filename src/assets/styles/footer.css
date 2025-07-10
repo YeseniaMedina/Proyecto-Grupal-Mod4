@@ -1,5 +1,5 @@
 .site-footer {
-  background-color: var(--background-medium);
+  background-color: var(--background-dark);
   color: var(--text-secondary);
   padding: 3rem 0 0;
 }
@@ -23,18 +23,19 @@
 .footer-brand::before {
   content: "";
   display: block;
-  width: 150px;
+  width: 300px;
   height: 60px;
   background-image: url('../images/LOGO_M4_V2.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  
 }
 
-.footer-brand h3 {
+/* .footer-brand h3 {
   color: var(--primary-color);
   font-size: 1.5rem;
-}
+} */
 
 .footer-brand p {
   font-size: 0.9rem;
