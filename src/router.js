@@ -27,40 +27,40 @@ export function router() {
   
 
   
-  // Protegemos rutas privadas
+  
   const isPublic = publicPaths.includes(path);
   if (!currentUser && !isPublic) {
     navigate("/login");
     return;
   }
 
-  // Si usuario logueado intenta ir a login o signup, redirige a home
+  
   if (currentUser && isPublic) {
     navigate("/");
     return;
   }
 
-    //  Si la ruta existe tal cual en routes
+    
   if (routes[path]) {
     routes[path](container);
     return;
   }
 
-   // 2. Manejar ruta /pelicula/:id
+   
   if (path.startsWith("/movie/")) {
-    const id = path.split("/")[2]; // ejemplo: "/pelicula/123" → "123"
+    const id = path.split("/")[2]; 
     detail(container, id);
     return;
   }
 
-   // 3. Manejar ruta /usuario/:id
+   
   if (path.startsWith("/user/")) {
-    const id = path.split("/")[2]; // ejemplo: "/usuario/456" → "456"
+    const id = path.split("/")[2]; 
     profile(container, id);
     return;
   }
 
-   //  4. Ruta no encontrada → volver al inicio
+   
   login(container);
 }
 

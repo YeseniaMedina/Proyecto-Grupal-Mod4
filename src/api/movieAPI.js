@@ -2,7 +2,7 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
-// Obtener películas populares con filtros
+
 export async function getPopularMovies(page = 1, sortBy = 'popularity.desc', genre = '', year = '') {
   try {
     let url = `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=es-ES&page=${page}&sort_by=${sortBy}&include_adult=false`;
@@ -23,7 +23,7 @@ export async function getPopularMovies(page = 1, sortBy = 'popularity.desc', gen
   }
 }
 
-// Buscar películas por texto
+
 export async function searchMovies(query, page = 1) {
   try {
     const response = await fetch(
@@ -41,7 +41,7 @@ export async function searchMovies(query, page = 1) {
   }
 }
 
-// Obtener lista de géneros
+
 export async function getGenres() {
   try {
     const response = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=es-ES`);

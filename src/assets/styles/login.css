@@ -1,11 +1,10 @@
-/* ----------- LOGIN FORM ----------- */
 .login-container {
   padding-top: 12px;
 }
 #loginForm {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra horizontalmente los inputs y botones */
+  align-items: center;
   gap: 1rem;
   max-width: 90%;
   margin: 2rem auto;
@@ -15,7 +14,7 @@
   box-shadow: 0 0 10px #15bf95;
   color: #f5f5f5;
   font-family: "Segoe UI", sans-serif;
-  text-align: center; /* Centra el texto de todo el form */
+  text-align: center;
 }
 
 h1 {
@@ -59,7 +58,6 @@ h1 {
   background-color: #0f8366;
 }
 
-/* ----------- MEDIA QUERIES ----------- */
 @media (min-width: 600px) {
   #loginForm {
     max-width: 400px;

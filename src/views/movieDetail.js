@@ -112,39 +112,29 @@ export async function detail(container, id) {
     closeBtn.addEventListener('click', () => { modal.classList.remove('active'); iframe.src = ''; });
     modal.addEventListener('click', e => { if (e.target === modal) { modal.classList.remove('active'); iframe.src = ''; } });
 
-    favBtn.addEventListener('click', async() => {
+    favBtn.addEventListener('click', async () => {
       let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  const key = movie.id.toString();
-
-  if (!currentUser) return;
-
-  if (currentUser.fav && currentUser.fav.includes(key)) {
-    // Quitar de favoritos
-    currentUser.fav = currentUser.fav.filter(id => id !== key);
-    favBtn.classList.remove('favourited');
-    favBtn.textContent = 'Add to Favourites';
-  } else {
-    // Añadir a favoritos
-    if (!currentUser.fav) currentUser.fav = [];
-    currentUser.fav.push(key);
-    favBtn.classList.add('favourited');
-    favBtn.textContent = 'Remove from Favourites';
-  }
-
-  // Actualizar en la API y localStorage
-  await currentUserEdit(currentUser, key);
-
-  // El localStorage se actualiza dentro de currentUserEdit
-      /*let current = JSON.parse(localStorage.getItem('favourites')) || [];
       const key = movie.id.toString();
-      if (current.includes(key)) {
-        current = current.filter(x => x !== key);
-        favBtn.classList.remove('favourited'); favBtn.textContent = 'Add to Favourites';
+
+      if (!currentUser) return;
+
+      if (currentUser.fav && currentUser.fav.includes(key)) {
+
+        currentUser.fav = currentUser.fav.filter(id => id !== key);
+        favBtn.classList.remove('favourited');
+        favBtn.textContent = 'Add to Favourites';
       } else {
-        current.push(key);
-        favBtn.classList.add('favourited'); favBtn.textContent = 'Remove from Favourites';
+
+        if (!currentUser.fav) currentUser.fav = [];
+        currentUser.fav.push(key);
+        favBtn.classList.add('favourited');
+        favBtn.textContent = 'Remove from Favourites';
       }
-      localStorage.setItem('favourites', JSON.stringify(current));*/
+
+
+      await currentUserEdit(currentUser, key);
+
+
     });
 
   } catch (error) {

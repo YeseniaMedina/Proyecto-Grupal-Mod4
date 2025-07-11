@@ -36,7 +36,7 @@ export function profile(container, id) {
     const avatarGallery = document.getElementById("avatarGallery");
     const selectedAvatar = document.getElementById("selectedAvatar");
 
-    //AVATARES
+    
     const avatars = [
         new URL('../assets/images/1.png', import.meta.url).href,
         new URL('../assets/images/2.png', import.meta.url).href,
@@ -48,9 +48,9 @@ export function profile(container, id) {
         new URL('../assets/images/8.png', import.meta.url).href,
     ];
 
-    let avatarSeleccionado = avatars[0]; //valor por defecto
+    let avatarSeleccionado = avatars[0]; 
 
-    //Mostrar AVATARES
+    
     avatars.forEach(url => {
         const img = document.createElement("img");
         img.src = url;
@@ -69,30 +69,30 @@ export function profile(container, id) {
         });
     }
 
-    //VALORES DOM
+   
     const form = document.getElementById('profileForm');
     const nombreSpan = document.getElementById('nombre');
     const emailSpan = document.getElementById('email');
 
-    //Cargar datos guardados y actualizar vista
+    
     const datosGuardados = getCurrentUser();
     if (datosGuardados) {
         nombreSpan.textContent = datosGuardados.name || "...";
         emailSpan.textContent = datosGuardados.email || "...";
 
-        // Cargar avatar guardado
-        if (datosGuardados.avatar /*|| datosGuardados.foto*/) {
-            const avatarGuardado = datosGuardados.avatar /*|| datosGuardados.foto*/;
+        
+        if (datosGuardados.avatar) {
+            const avatarGuardado = datosGuardados.avatar ;
             selectedAvatar.src = avatarGuardado;
             avatarSeleccionado = avatarGuardado;
             highlightAvatar(avatarGuardado);
         } else {
-            // Si no hay avatar guardado, usar el por defecto
+            
             selectedAvatar.src = avatarSeleccionado;
-            /*highlightAvatar(avatarSeleccionado);*/
+            
         }
     } else {
-        // Si no hay usuario, usar avatar por defecto
+        
         selectedAvatar.src = avatarSeleccionado;
         highlightAvatar(avatarSeleccionado);
     }
@@ -103,13 +103,13 @@ export function profile(container, id) {
         const nombre = document.getElementById('inputNombre').value.trim();
         const email = document.getElementById('inputEmail').value.trim();
         
-        // Usar el avatar seleccionado
+        
         await guardarYMostrar(nombre, email, avatarSeleccionado);
         div.style.display = div.style.display === "none" ? "block" : "none";
     });
 
     async function guardarYMostrar(nombre, email, avatar) {
-        // Actualizar la vista
+        
         if (nombre) nombreSpan.textContent = nombre;
         if (email) emailSpan.textContent = email;
         selectedAvatar.src = avatar;
@@ -133,7 +133,7 @@ export function profile(container, id) {
             return;
         }
 
-        // Preparar datos para actualizar
+        
         const datosActualizados = {
             ...currentUser,
             name: nombre || currentUser.name,
@@ -142,7 +142,7 @@ export function profile(container, id) {
         };
 
         try {
-            // Actualizar en MockAPI
+            
             const response = await fetch(`https://686183678e74864084463e90.mockapi.io/proyect4/users/${currentUser.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -156,10 +156,10 @@ export function profile(container, id) {
             const data = await response.json();
             console.log("Usuario actualizado en MockAPI:", data);
 
-            // Actualizar localStorage con los datos de la API
+            
             localStorage.setItem('currentUser', JSON.stringify(data));
 
-            // Mostrar mensaje de éxito
+            
             
             showToast({
                 text: "¡Perfil actualizado con éxito!",
@@ -185,7 +185,7 @@ export function profile(container, id) {
         }, 3000);
     }
 
-    //Visibilidad de la caja (toggleBox)
+    
     const button = document.getElementById("toggleBtn");
     const div = document.getElementById("profileBox");
 

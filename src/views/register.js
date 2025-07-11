@@ -23,15 +23,15 @@ export function register(container) {
     regForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-            // Cojo el value de los inputs
+            
         const regName = document.getElementById("regName").value;
         const regEmail = document.getElementById("regEmail").value;
         const regPassword = document.getElementById("regPassword").value;
-        // const regPhone = document.getElementById("phone_number").value;
+        
 
-        // creo el objeto de los dattos del ususario y llamando a las validaciones
+        
 
-        const validations = credentialValidations({name: regName, email: regEmail, password: regPassword}) // mediante desestructuracion por eso le tengo que dar una propiedad y hacer referencia
+        const validations = credentialValidations({name: regName, email: regEmail, password: regPassword}) 
 
       
 

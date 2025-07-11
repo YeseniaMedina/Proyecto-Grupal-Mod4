@@ -7,11 +7,11 @@ export function renderNavbar(container) {
   const currentUser = getCurrentUser();
   if (!container) return; 
 
-    // Crear el header completo
+    
     const header = document.createElement("header");
     header.className = "fixed-header";
   
-    // Estructura visual moderna con logo en imagen y SVGs
+    
     header.innerHTML = `
       <div class="header-content">
         <div class="logo-container">
@@ -88,7 +88,7 @@ export function renderNavbar(container) {
       </div>
     `;
   
-    // Reemplazar el header anterior (si existe)
+    
     const existingHeader = document.querySelector("header");
     if (existingHeader) {
       existingHeader.replaceWith(header);
@@ -97,7 +97,7 @@ export function renderNavbar(container) {
     }
   
 
-    // // 1. Configurar el menú hamburguesa
+    
     const hamburgerBtn = header.querySelector(".hamburger-btn");
     const mobileMenu = header.querySelector(".mobile-menu");
 
@@ -107,7 +107,7 @@ export function renderNavbar(container) {
       });
     }
 
-    // // 2. Cerrar el menú al hacer clic en cualquier enlace del menú móvil
+    
     const mobileLinks = header.querySelectorAll(".mobile-menu [data-link]");
     mobileLinks.forEach(link => {
       link.addEventListener("click", () => {
@@ -115,7 +115,7 @@ export function renderNavbar(container) {
       });
     });
 
-    // 3. Cerrar el menú al hacer logout (versión móvil)
+    
     if (currentUser) {
       const logoutBtnMobile = header.querySelector("#logoutBtnMobile");
       if (logoutBtnMobile) {
@@ -126,17 +126,17 @@ export function renderNavbar(container) {
     }
 
 
-    // Evento logout (desktop)
+    
     if (currentUser) {
       const logoutBtn = header.querySelector("#logoutBtn");
       if (logoutBtn) {
         logoutBtn.addEventListener("click", () => {
           localStorage.removeItem("currentUser");
-          renderNavbar(container); // volver a renderizar
+          renderNavbar(container); 
           navigate("/login");
         });
       }
-      // Evento logout (mobile)
+      
       const logoutBtnMobile = header.querySelector("#logoutBtnMobile");
       if (logoutBtnMobile) {
         logoutBtnMobile.addEventListener("click", () => {

@@ -1,12 +1,3 @@
-/*body {
-  height: 100%;
-  font-size: 100%;
-  line-height: 1.5;
-  font-family: "Arial", sans-serif;
-  background-color: #121212;
-  color: #fff;
-}*/
-
 .profile-h1 {
   color: var(--primary-color);
   text-align: center;
@@ -88,7 +79,6 @@
   margin-bottom: 1rem;
 }
 
-/* Grid para avatares */
 .grid-avatars {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

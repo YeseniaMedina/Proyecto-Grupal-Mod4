@@ -1,4 +1,4 @@
-// Mostrar estado de carga
+
 export function showLoading() {
   const loadingContainer = document.querySelector('.loading-container');
   if (loadingContainer) {
@@ -11,7 +11,7 @@ export function showLoading() {
   }
 }
 
-// Ocultar estado de carga
+
 export function hideLoading() {
   const loadingContainer = document.querySelector('.loading-container');
   if (loadingContainer) {
@@ -19,7 +19,7 @@ export function hideLoading() {
   }
 }
 
-// Mostrar mensaje de error
+
 export function showError(message) {
   const errorContainer = document.querySelector('.error-container');
   if (errorContainer) {
@@ -30,14 +30,14 @@ export function showError(message) {
       </div>
     `;
     
-    // Eliminar el mensaje después de 5 segundos
+    
     setTimeout(() => {
       errorContainer.innerHTML = '';
     }, 5000);
   }
 }
 
-// Mostrar mensaje de éxito
+
 export function showSuccess(message) {
   const errorContainer = document.querySelector('.error-container');
   if (errorContainer) {
@@ -48,7 +48,7 @@ export function showSuccess(message) {
       </div>
     `;
     
-    // Eliminar el mensaje después de 3 segundos
+    
     setTimeout(() => {
       errorContainer.innerHTML = '';
     }, 3000);

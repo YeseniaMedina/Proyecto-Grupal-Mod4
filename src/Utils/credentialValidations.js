@@ -21,7 +21,7 @@ export function credentialValidations({name, email, password}) {
 
  if(email !== undefined) {
     if(!regexEmail.test(email)) {
-        //alert showtoast con error
+        
         showToast({
                 text: "Email no válido.",
                 type: "error",
@@ -37,7 +37,7 @@ export function credentialValidations({name, email, password}) {
 
  if (password !== undefined) {
     if(!regexPassword.test(password)) {
-        //showtoast typo error ( "La contraseña debe tener letras y números, mínimo 6 caracteres")
+        
         showToast({
         text: "La contraseña debe tener más de 6 caractéres y al menos un número y una letra",
         type: "error",

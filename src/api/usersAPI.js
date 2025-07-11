@@ -61,7 +61,7 @@ export function getCurrentUser() {
         return JSON.parse(loadUser);
     } catch (error) {
         console.error('Error parsing currentUser from localStorage:', error);
-        // Limpiar el localStorage si hay datos corruptos
+        
         localStorage.removeItem("currentUser");
         return null;
     }
@@ -70,10 +70,10 @@ export function getCurrentUser() {
 
 export async function currentUserEdit(currentUser, movieId) {
     try {
-        // Usar directamente el currentUser que ya tiene el array fav modificado
+        
         const updateFavs = currentUser.fav || [];
 
-        // Actualizar en MockAPI
+        
         const putResponse = await fetch(`${baseUrl}/users/${currentUser.id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -86,7 +86,7 @@ export async function currentUserEdit(currentUser, movieId) {
 
         const updatedUser = await putResponse.json();
         
-        // Actualizar el currentUser en localStorage con los datos más recientes
+        
         localStorage.setItem('currentUser', JSON.stringify(updatedUser));
         console.log("Usuario actualizado en MockAPI:", updatedUser);
         return updatedUser;

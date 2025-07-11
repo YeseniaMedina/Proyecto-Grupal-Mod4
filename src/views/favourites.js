@@ -32,17 +32,14 @@ export async function favourites(container, id = null) {
     favList.innerHTML = "<p>No tienes películas favoritas aún.</p>";
     return;
   }
-  // Traer los datos de cada película
+  
   for (const movieId of storedIds) {
     try {
-      const movie = await fetchMovieDetails(movieId); // para traer la info completa
+      const movie = await fetchMovieDetails(movieId); 
       const imageUrl = movie.poster_path
         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
         : "https://wallpapers.com/images/featured/pelicula-9pvmdtvz4cb0x137.jpg";
 
-      //Debug en consola
-      // console.log("movie.title:", movie.title);
-      // console.log("imageUrl:", imageUrl);
 
       const movieDiv = document.createElement("div");
       movieDiv.classList.add("favorite-movie");
@@ -70,16 +67,16 @@ export async function favourites(container, id = null) {
 
       const removeBtn = movieDiv.querySelector(".remove-fav-btn");
       removeBtn.addEventListener("click", async () => {
-        // Obtener usuario actual
+        
         let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-        // Quitar de favoritos
+        
         currentUser.fav = currentUser.fav.filter(id => id.toString() !== movie.id.toString());
 
-        // Actualizar en la API y localStorage
+       
         const updatedUser = await currentUserEdit(currentUser, movie.id);
 
-        // Actualizar la vista llamando de nuevo a la función para refrescar la lista
+        
         favourites(container, updatedUser.id);
       });
 
