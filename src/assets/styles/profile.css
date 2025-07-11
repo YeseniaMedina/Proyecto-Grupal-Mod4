@@ -1,0 +1,131 @@
+.profile-h1 {
+  color: var(--primary-color);
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 1.5%;
+}
+
+.profile-container {
+  background-color: black;
+  color: white;
+  padding: 1em;
+  border-radius: 0.8em;
+  width: 50%;
+  margin: 1% 25% 2% 25%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  justify-content: center;
+}
+
+.profile-photo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.profile-photo img {
+  width: 30%;
+  height: 30%;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1em;
+}
+
+.profile-fav {
+  display: flex;
+  justify-self: center;
+  justify-content: center;
+  border: var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5em 3em;
+  margin: 5%;
+  border-radius: 0.2em;
+  width: 50%;
+  font-size: 1.25em;
+  text-align: center;
+}
+
+.profile-fav:hover {
+  background-color: #111111;
+  box-shadow: var(--primary-color);
+}
+
+.profile-info {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+#profileForm {
+  margin: 5% auto 5% auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profileInput {
+  display: block;
+  margin: 1%;
+  padding: 1em;
+  width: 94%;
+  border-radius: 0.2em;
+  border-style: none;
+  background-color: var(--background-light);
+  color: white;
+  font-size: 1.05em;
+  margin-bottom: 1rem;
+}
+
+.grid-avatars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.grid-avatars img.avatar-option {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.grid-avatars img.avatar-option:hover {
+  transform: scale(1.05);
+}
+
+.profileBtn {
+  padding: 3%;
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.2em;
+  font-size: 1.25em;
+}
+
+.profileBtn:hover {
+  background-color: var(--background-light);
+  box-shadow: var(--primary-color);
+}
+
+.mensaje-perfil {
+  color: var(--primary-color);
+  padding: auto;
+  margin-top: 1.5em;
+  border-radius: 5px;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+#inputFoto {
+  border: none;
+  background-color: black;
+}
